@@ -1,0 +1,50 @@
+/** UI FIX **/
+
+.ui-widget { 
+	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif !important; 
+	font-size: 0.8em !important; 
+}
+
+.checkbox {
+	padding:0 !important;
+	margin-bottom:0 !important;
+}
+
+.category-box {
+	float:right;
+	height:250px;
+	width:20%;
+	padding:3px;
+}
+.category-box-content {
+	height:224px;
+	overflow:auto;
+	background:#fff;
+}
+
+.main-editor {
+	float:left;
+	clear:none !important;
+	width:79%;
+}
+
+form {
+	width:100%;
+}
+
+ul, ol {
+	list-style:none;
+}
+
+.order-icons ul {
+	float:right;
+}
+
+.order-icons p {
+	float:left;
+}
+
+.order-icons button {
+	width:78px;
+}
+
