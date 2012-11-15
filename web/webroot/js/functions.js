@@ -125,10 +125,10 @@ function orderIcons () {
 	    	currentId=currentId.replace(model+"-", "");
 	    	html="<p>"+i+"</p><input type='hidden' id='Image"+currentId+"Order' value='"+i+"' name='data[Image]["+currentId+"][order]'><ul>"
 	    	if (i>1) {
-	    		html=html+"<li><button onclick=\"orderUp("+currentId+", 'image', "+i+"); return false;\" class='order-up'>Move up</button></li>";
+	    		html=html+"<li><button onclick=\"orderUp("+currentId+", 'image', "+i+"); return false;\" class='act up_order'>Sposta su</button></li>";
 	    	}
 	    	if (i<count) {
-	    		html=html+"<li><button onclick=\"orderDown("+currentId+", 'image', "+i+"); return false;\" class='order-down'>Move down</button></li>";
+	    		html=html+"<li><button onclick=\"orderDown("+currentId+", 'image', "+i+"); return false;\" class='act down_order'>Sposta giu</button></li>";
 	    	}
 	    	html=html+"</ul>";
 		    $(this).children('.order-icons').html(html);

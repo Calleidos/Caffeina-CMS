@@ -6,8 +6,8 @@
 				echo $this->Form->input("Image.{$element['id']}.foreign_model", array("value" => $element['foreign_model'], "type"=>"hidden"));
 			echo $this->Form->input("Image.{$element['id']}.foreign_model", array("value" => $element['foreign_model'], "type"=>"hidden"));
 		?>
-		<button onclick="cancelFileSave(<?php echo $element['id'] ?>, 'image'); return false;" class="cancel-file-save"><?php echo __("Cancel"); ?></button>
-		<button onclick="saveFile(<?php echo $element['id'] ?>, 'image'); return false;" class="save-file"><?php echo __("Save file"); ?></button>
+		<button onclick="cancelFileSave(<?php echo $element['id'] ?>, 'image'); return false;" class="act btn_red"><?php echo __("Cancel"); ?></button>
+		<button onclick="saveFile(<?php echo $element['id'] ?>, 'image'); return false;" class="act btn_green"><?php echo __("Save file"); ?></button>
 	</td>
 	<td>
 		<?php echo $this->Form->input("Image.{$element['id']}.name", array("value" => $element['name'], 'label' => false)); ?>

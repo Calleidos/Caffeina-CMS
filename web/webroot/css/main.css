@@ -2,7 +2,7 @@
 
 .ui-widget { 
 	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif !important; 
-	font-size: 0.8em !important; 
+	font-size: 11px !important; 
 }
 
 .checkbox {
@@ -15,6 +15,11 @@
 	height:250px;
 	width:20%;
 	padding:3px;
+	width:100%;
+}
+.category-box a,.category-box p,.category-box li{
+		text-size:11px !important;
+}
 }
 .category-box-content {
 	height:224px;
@@ -25,7 +30,13 @@
 .main-editor {
 	float:left;
 	clear:none !important;
-	width:79%;
+	width:98%;
+}
+
+.docs-editor {
+	float:left;
+	clear:none !important;
+	width:99%;
 }
 
 form {
@@ -48,3 +59,27 @@ ul, ol {
 	width:78px;
 }
 
+.tabs_input{
+	
+	border:1px solid #AAAAAA;
+	padding:5px 3px;
+	margin-top:10px;
+	margin-bottom:10px;
+	
+}
+.main-editor label{
+	color:#808080;
+	width:80px;
+	min-width:80px;
+	line-height:30px;
+	height:30px;
+	margin-right:20px;
+	display:inline-block;
+}
+.file-list{
+	width:100%;
+}
+.file-list .order-icons button {
+	width:120px;
+	text-align:left;
+}

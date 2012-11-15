@@ -8,8 +8,8 @@
 			echo $this->Form->input("Image.{$element['id']}.name", array("value" => $element['name'], "type"=>"hidden"));
 			echo $this->Form->input("Image.{$element['id']}.tipologia", array("value" => $element['tipologia'], "type"=>"hidden"));
 		?>
-		<button onclick="if(confirm('<?php echo __("Are you sure you want to delete this file?")?>')) {deleteFile(<?php echo $element['id'] ?>, 'image');} return false;" class="cancel-file"><?php echo __("Delete file"); ?></button>
-		<button onclick="editFile(<?php echo $element['id'] ?>, 'image'); return false;" class="edit-file"><?php echo __("Edit file"); ?></button>
+		<button onclick="if(confirm('<?php echo __("Are you sure you want to delete this file?")?>')) {deleteFile(<?php echo $element['id'] ?>, 'image');} return false;" class="act btn_red"><?php echo __("Delete file"); ?></button>
+		<button onclick="editFile(<?php echo $element['id'] ?>, 'image'); return false;" class="act btn_yellow"><?php echo __("Edit file"); ?></button>
 	</td>
 	<td>
 		<?php echo $element['name'] ?>

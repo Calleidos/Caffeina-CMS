@@ -1,5 +1,10 @@
 <?php 
-		$this->element("fancybox_links");
+//echo $this->Html->css('cake.generic');
+ echo $this->Html->css('main');
+		
+ 
+ 
+ 		$this->element("fancybox_links");
 		$this->Html->css('datetimepicker', null, array('inline' => false));
 		$this->Html->script("/js/functions.js", array('inline' => false));
 		$this->append('script');?>
@@ -43,73 +48,169 @@
 			'theme_advanced_toolbar_location' => "top",	
 		)
 	);?>
-<div class="products">
+	
+	
+	<!-- start content-outer ........................................................................................................................START -->
+<div id="content-outer">
+<!-- start content -->
+<div id="content">
+
+	<!--  start page-heading -->
+	<div id="page-heading">
+		<h1><?php echo __('Elenco prodotti')?></h1>
+	</div>
+	<!-- end page-heading -->
+
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+	<tr>
+		<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowleft.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
+		<th class="topleft"></th>
+		<td id="tbl-border-top">&nbsp;</td>
+		<th class="topright"></th>
+		<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowright.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
+	</tr>
+	<tr>
+		<td id="tbl-border-left"></td>
+		<td>
+		<!--  start content-table-inner ...................................................................... START -->
+		<div id="content-table-inner">
+		
+			<!--  start table-content  -->
+			<div id="table-content">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 <?php echo $this->Form->create('Product');?>
 	
-	<h1><?php echo __('Admin Edit Product'); ?></h1>
-	<?php
-		if (isset($this->data['Product']['id']))
-			echo $this->Form->input('id');
-		if (isset($order))
-			echo $this->Form->input('order');
-			
-		echo $this->Form->input('code');?>
-		<div class="category-box  ui-widget">
-			<h3 class="ui-widget-header ui-corner-all"><?php echo __("Categories") ?></h3><?php
-			echo $this->Form->input('Category', array('type' => 'select', 'multiple'=>"checkbox", 'div' =>"ui-widget ui-widget-content ui-corner-all", 'label' => false));?>
+	
+			<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table" >
+				
+					
+				<tr>
+					<th class="table-header-check"></th>
+					<th class="table-header-repeat"><span><?php echo __('Prodotto'); ?></span></th>
+					<th class="table-header-repeat line-left" style="width:28px;"></th>
+					<th class="table-header-repeat line-left"><span><?php echo __('Categorie'); ?></span></th>
+				</tr>
 		
-			<a class="fancy-modal" href="/admin/categories/addAjax/Product">
-				<button onclick="return false;" class="add-button"><?php echo __("Add Category"); ?></button>
-			</a>
-		</div>
-		<div class="tabs main-editor">
-			<ul>
-				<?php foreach ($languages as $id=>$language) { ?>
-					<li><a href="#tabs-<?php echo $id ?>"><?php echo $language ?></a></li>
-				<?php  } ?>
-			</ul>
-			<?php foreach ($languages as $id=>$language) { ?>
-				<div id="tabs-<?php echo $id ?>">
-					<div class="tabs">
+		
+		
+				<tr>
+					<td colspan="2">
+					<?php
+						if (isset($this->data['Product']['id']))
+							echo $this->Form->input('id');
+						if (isset($order))
+							echo $this->Form->input('order');
+							
+						echo $this->Form->input('code');
+					?>
+					<br />
+					<div class="tabs main-editor">
 						<ul>
-							<li><a href="#tab-details-<?php echo $language ?>"><?php echo __('Product Details'); ?></a></li>
-							<li><a href="#tab-seo-<?php echo $language ?>"><?php echo __('SEO'); ?></a></li>
+							<?php foreach ($languages as $id=>$language) { ?>
+								<li><a href="#tabs-<?php echo $id ?>"><?php echo $language ?></a></li>
+							<?php  } ?>
 						</ul>
-						<div id="tab-details-<?php echo $language ?>"><?php
-							if (isset($this->request->data['ProductVersion'][$id]["id"])) {
-								echo $this->Form->input("ProductVersion.$id.id");
-							}
-							echo $this->Form->input("ProductVersion.$id.name", array("class" => "page-title"));
-							echo $this->Form->input("ProductVersion.$id.slug", array("disabled" => true));?>
-							<button id="modify-slug-<?php echo $id ?>" onclick="modifySlug(<?php echo $id ?>); return false;" class="edit-file"><?php echo _("Modify Slug"); ?></button><?php 
-							echo $this->Form->input("ProductVersion.$id.active", array("options" => array(0 => __('Disabled'), 1=> __('Hidden'), 2=>__('Enabled') )));
-							echo $this->Form->input("ProductVersion.$id.description");
-							echo $this->Form->input("ProductVersion.$id.price");
-							echo $this->Form->input("ProductVersion.$id.language_id", array("value" => $id, 'type' => 'hidden'));?>
-						</div>
-						<div id="tab-seo-<?php echo $language ?>"><?php
-							echo $this->Form->input("ProductVersion.$id.seo_title");
-							echo $this->Form->input("ProductVersion.$id.seo_keywords");
-							echo $this->Form->input("ProductVersion.$id.seo_description");?>
-						</div>
+						<?php foreach ($languages as $id=>$language) { ?>
+							<div id="tabs-<?php echo $id ?>" style="margin-top:20px;">
+								<div class="tabs">
+									<ul>
+										<li><a href="#tab-details-<?php echo $language ?>"><?php echo __('Product Details'); ?></a></li>
+										<li><a href="#tab-seo-<?php echo $language ?>"><?php echo __('SEO'); ?></a></li>
+									</ul>
+									<div id="tab-details-<?php echo $language ?>"><?php
+										if (isset($this->request->data['ProductVersion'][$id]["id"])) {
+											echo $this->Form->input("ProductVersion.$id.id");
+										}
+										echo $this->Form->input("ProductVersion.$id.name", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("ProductVersion.$id.slug", array("class" => "page-title ui-corner-all tabs_input", "disabled" => true));?>
+										<button id="modify-slug-<?php echo $id ?>" onclick="modifySlug(<?php echo $id ?>); return false;" class="edit-file"><?php echo _("Modify Slug"); ?></button><?php 
+										echo $this->Form->input("ProductVersion.$id.active", array("options" => array(0 => __('Disabled'), 1=> __('Hidden'), 2=>__('Enabled') ), "class" => "styledselect"));
+										echo $this->Form->input("ProductVersion.$id.description", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("ProductVersion.$id.price", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("ProductVersion.$id.language_id", array("value" => $id, 'type' => 'hidden'));?>
+									</div>
+									<div id="tab-seo-<?php echo $language ?>"><?php
+										echo $this->Form->input("ProductVersion.$id.seo_title");
+										echo $this->Form->input("ProductVersion.$id.seo_keywords");
+										echo $this->Form->input("ProductVersion.$id.seo_description");?>
+									</div>
+								</div>
+							</div><?php
+						}?>
 					</div>
-				</div><?php
-			}?>
-		</div>
-		<div class="tabs">
-			<ul>
-				<li><a href="#tab-images"><?php echo __('Product Photos'); ?></a></li>
-				<li><a href="#tab-documents"><?php echo __('Product Documents'); ?></a></li>
-			</ul><?php 
+					</td>
+					<td colspan="2" style="vertical-align:top;width:130px;">
+						<?php
+						echo $this->Form->input('Category', array('type' => 'select', 'multiple'=>"checkbox", 'div' =>"", 'label' => false));?>
+					
+						<a class="fancy-modal" href="/admin/categories/addAjax/Product">
+							
+							<button onclick="return false;" class="add-button act btn_green" style="height:25px;"><?php echo __("Add Category"); ?></button>
+							
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<div class="tabs docs-editor">
+							<ul>
+								<li><a href="#tab-images"><?php echo __('Foto prodotti'); ?></a></li>
+								<li><a href="#tab-documents"><?php echo __('Documenti prodotti'); ?></a></li>
+							</ul><?php 
+							
+							$details=array('type' => 'image', 'model' => 'Product');
+							$this->set('details',$details);
+							echo $this->element('/admin/file_list');
+							$details=array('type' => 'document', 'model' => 'Product');
+							$this->set('details',$details);
+							echo $this->element('/admin/file_list');?>
+							
+						</div>
+						<div class="clear">&nbsp;</div>
+					</td>
+				</tr>
+			</table>
+					
 			
-			$details=array('type' => 'image', 'model' => 'Product');
-			$this->set('details',$details);
-			echo $this->element('/admin/file_list');
-			$details=array('type' => 'document', 'model' => 'Product');
-			$this->set('details',$details);
-			echo $this->element('/admin/file_list');?>
-			
-		</div>
-		<?php
-	echo $this->Form->end(__('Submit'));?>
+		
+		
+		
+		<span class="act input btn_green">
+			<?php echo $this->Form->end(__('Salva'));?>
+		</span>
+</div></div></td>
+<td id="tbl-border-right"></td>
+	</tr>
+	<tr>
+		<th class="sized bottomleft"></th>
+		<td id="tbl-border-bottom">&nbsp;</td>
+		<th class="sized bottomright"></th>
+	</tr>
+	</table>
+	<div class="clear">&nbsp;</div>
+
 </div>
+<!--  end content -->
+<div class="clear">&nbsp;</div>
+</div>
+<!--  end content-outer........................................................END -->
