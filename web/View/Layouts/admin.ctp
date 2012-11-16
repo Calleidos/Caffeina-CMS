@@ -43,6 +43,9 @@
 	
 
 //echo $this->Html->script('js_admin/jquery-1.4.1.min');
+
+ 
+ 
 echo $this->Html->script('js_admin/ui.core');
 echo $this->Html->script('js_admin/custom_jquery');
 
@@ -60,6 +63,10 @@ echo $this->Html->css('css_admin/pro_dropline_ie');
 <!--  checkbox styling script -->
 <?php 
 /*echo $this->Html->script('js_admin/ui.core');*/
+		
+		
+		
+		
 echo $this->Html->script('js_admin/ui.checkbox');
 echo $this->Html->script('js_admin/jquery.bind');
 ?>
@@ -230,6 +237,7 @@ $(document).pngFix( );
 </script>
 </head>
 <body> 
+<?php echo $this->element('sql_dump'); ?>
 <!-- Start: page-top-outer -->
 <div id="page-top-outer">    
 
@@ -393,8 +401,6 @@ $(document).pngFix( );
 <!--  start nav-outer-repeat................................................... END -->
 
  <div class="clear"></div>
-</head>
-<body>
 
 
 

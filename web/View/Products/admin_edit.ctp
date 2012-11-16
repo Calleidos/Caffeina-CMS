@@ -150,9 +150,9 @@
 										echo $this->Form->input("ProductVersion.$id.language_id", array("value" => $id, 'type' => 'hidden'));?>
 									</div>
 									<div id="tab-seo-<?php echo $language ?>"><?php
-										echo $this->Form->input("ProductVersion.$id.seo_title");
-										echo $this->Form->input("ProductVersion.$id.seo_keywords");
-										echo $this->Form->input("ProductVersion.$id.seo_description");?>
+										echo $this->Form->input("ProductVersion.$id.seo_title", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("ProductVersion.$id.seo_keywords", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("ProductVersion.$id.seo_description", array("class" => "page-title ui-corner-all tabs_input"));?>
 									</div>
 								</div>
 							</div><?php

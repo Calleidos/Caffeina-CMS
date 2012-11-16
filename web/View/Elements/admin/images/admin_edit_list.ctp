@@ -10,10 +10,10 @@
 		<button onclick="saveFile(<?php echo $element['id'] ?>, 'image'); return false;" class="act btn_green"><?php echo __("Save file"); ?></button>
 	</td>
 	<td>
-		<?php echo $this->Form->input("Image.{$element['id']}.name", array("value" => $element['name'], 'label' => false)); ?>
+		<?php echo $this->Form->input("Image.{$element['id']}.name", array("value" => $element['name'], 'label' => false, "class" => "page-title ui-corner-all tabs_input")); ?>
 	</td>
 	<td>
-		<?php echo $this->Form->input("Image.{$element['id']}.tipologia", array("value" => $element['tipologia'], 'label' => false, 'type'=>'select', 'options'=>Configure::read("tipologiaImmagine"))); ?>
+		<?php echo $this->Form->input("Image.{$element['id']}.tipologia", array("value" => $element['tipologia'], 'label' => false, 'type'=>'select', 'options'=>Configure::read("tipologiaImmagine"), "class" => "styledselect")); ?>
 	</td>
 	<td>
 		&nbsp;

@@ -10,7 +10,7 @@
 		<button onclick="saveFile(<?php echo $element['id'] ?>, 'document'); return false;" class="act btn_green"><?php echo __("Save file"); ?></button>
 	</td>
 	<td>
-		<?php echo $this->Form->input("Document.{$element['id']}.name", array("value" => $element['name'], 'label' => false)); ?>
+		<?php echo $this->Form->input("Document.{$element['id']}.name", array("value" => $element['name'], 'label' => false, "class" => "page-title ui-corner-all tabs_input")); ?>
 	</td>
 	<td>
 		<?php echo $this->Form->input("Document.{$element['id']}.tipologia", array("value" => $element['tipologia'], 'label' => false, 'type'=>'select', 'options'=>Configure::read("tipologiaDocumento"))); ?>
@@ -19,7 +19,7 @@
 		&nbsp;
 	</td>
 	<td>
-		<?php echo $this->Form->input("Document.{$element['id']}.description", array("value" => $element['description'], 'label' => false, "div" => array("id" => "Document{$element['id']}DescriptionTextArea" ))); ?>
+		<?php echo $this->Form->input("Document.{$element['id']}.description", array("value" => $element['description'], 'label' => false, "div" => array("id" => "Document{$element['id']}DescriptionTextArea" ), "class" => "page-title ui-corner-all tabs_input")); ?>
 	</td>
 	<td>
 		&nbsp;
