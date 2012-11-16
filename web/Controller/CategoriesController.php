@@ -18,6 +18,30 @@ class CategoriesController extends AppController {
         $data = $this->Category->generateTreeList(null, null, null, '- ');
         debug($data); die;
     }
+    
+    public function admin_viewproducts($id=null) {
+    	$this->Category->id = $id;
+    
+    	if (!$this->Category->exists()) {
+    		throw new NotFoundException(__('Invalid category'));
+    	}
+    	$category=$this->Category->read(null, $id);
+    
+    	$this->Category->Product->bindModel(array('hasOne' => array('ProductsCategory')));
+    	$products=$this->Category->Product->find('all', array('conditions'=>array('ProductsCategory.category_id'=>$id)));
+    
+    	foreach ($products as $key=>$product) {
+    		$pvs=array();
+    		foreach ($product['ProductVersion'] as $pv)
+    			$pvs[$pv['language_id']]=$pv;
+    		$products[$key]['ProductVersion']=$pvs;
+    	}
+    	$this->set('products', $products);
+    
+    	$this->set('totalProducts', count($products));
+    
+    
+    }
 
 	public function view($permalink = null, $language=null) {
 		$category=$this->Category->findBySlug($permalink);
