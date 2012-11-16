@@ -401,12 +401,60 @@ $(document).pngFix( );
 <!--  start nav-outer-repeat................................................... END -->
 
  <div class="clear"></div>
+<!-- start content-outer ........................................................................................................................START -->
+<div id="content-outer">
 
+<!-- start content -->
+<div id="content">
 
-
-			<?php echo $this->Session->flash(); ?>
+			<div id="messages">
+				<?php
+				    if ($this->Session->check('Message.flash')) 
+				    	echo $this->Session->flash(); // the standard messages
+				    // multiple messages
+				    if ($messages = $this->Session->read('Message.multiFlash')) {?>
+				    <table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+						<tr>
+							<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowleft.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
+							<th class="topleft"></th>
+							<td id="tbl-border-top">&nbsp;</td>
+							<th class="topright"></th>
+							<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowright.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
+						</tr>
+						<tr>
+							<td id="tbl-border-left"></td>
+							<td>
+							<!--  start content-table-inner ...................................................................... START -->
+							<div id="content-table-inner">
+							
+								<!--  start table-content  -->
+								<div id="table-content"><?php 
+				        foreach($messages as $k=>$v){
+				        	echo $this->Session->flash('multiFlash.'.$k);
+				        }?>
+				        </div>
+						</div>
+					</td>
+					<td id="tbl-border-right"></td>
+					</tr>
+					<tr>
+						<th class="sized bottomleft"></th>
+						<td id="tbl-border-bottom">&nbsp;</td>
+						<th class="sized bottomright"></th>
+					</tr>
+				</table>
+				<div class="clear">&nbsp;</div><?php 
+				    }
+				?>
+			</div>
 
 			<?php echo $this->fetch('content'); ?>
+			
+
+</div>
+<!--  end content -->
+</div>
+<!--  end content-outer........................................................END -->
 
  <div class="clear">&nbsp;</div>
 <!-- start footer -->         

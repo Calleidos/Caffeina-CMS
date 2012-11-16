@@ -26,6 +26,7 @@ class ImagesController extends AppController {
 			$foreign_id=0;
 		$this->set("foreign_model", $foreign_model);
 		$this->set("foreign_id", $foreign_id);
+		$this->layout="iframe";
 		
 	}
 	

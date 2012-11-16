@@ -27,6 +27,7 @@ class CategoriesController extends AppController {
     	}
     	$category=$this->Category->read(null, $id);
     
+    	$this->set('category', $category);
     	$this->Category->Product->bindModel(array('hasOne' => array('ProductsCategory')));
     	$products=$this->Category->Product->find('all', array('conditions'=>array('ProductsCategory.category_id'=>$id)));
     

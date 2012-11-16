@@ -44,6 +44,10 @@ class ProductsController extends AppController {
 				$pvs[$pv['language_id']]=$pv;
 			$products[$key]['ProductVersion']=$pvs;
 		}
+		$this->_flash(__('Normal message.', true),'red');
+        $this->_flash(__('Info message.', true),'yellow');
+        $this->_flash(__('Success message.', true),'green');
+        $this->_flash(__('Warning message.', true),'blue');
 		$this->set('products', $products);
 		$this->set('totalProducts', $this->Product->find('count'));
 	}

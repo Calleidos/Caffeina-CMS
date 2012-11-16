@@ -73,4 +73,14 @@ class AppController extends Controller {
 		
 		
 	}
+	function _flash($message,$type='message') {
+		$messages = (array)$this->Session->read('Message.multiFlash');
+		$messages[] = array(
+				'message'=>$message,
+				'layout'=>'default',
+				'element'=>'message',
+				'params'=>array('class'=>$type),
+		);
+		$this->Session->write('Message.multiFlash', $messages);
+	}
 }

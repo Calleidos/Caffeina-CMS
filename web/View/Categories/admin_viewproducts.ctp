@@ -15,11 +15,14 @@
 		</script><?php
 	$this->end(); 
 	?>
-
+<!-- start content-outer ........................................................................................................................START -->
+<div id="content-outer">
+<!-- start content -->
+<div id="content">
 
 	<!--  start page-heading -->
 	<div id="page-heading">
-		<h1><?php echo __('Elenco prodotti')?></h1>
+		<h1><?php echo __("Categoria"); ?> : <?php echo $category["Category"]["name"]; ?></h1>
 	</div>
 	<!-- end page-heading -->
 
@@ -40,7 +43,49 @@
 			<!--  start table-content  -->
 			<div id="table-content">
 			
+				<!--  start message-yellow -->
+				<div id="message-yellow">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="yellow-left"><?php echo __('Hai un nuovo messaggio!'); ?><a href="#">Go to Inbox.</a></td>
+					<td class="yellow-right"><a class="close-yellow"><?php echo $this->Html->image("admin/table/icon_close_yellow.gif", array("alt" => ""));?></a></td>
+				</tr>
+				</table>
+				</div>
+				<!--  end message-yellow -->
 				
+				<!--  start message-red -->
+				<div id="message-red">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="red-left"><?php echo __('Errore'); ?><a href="#">Admin</a></td>
+					<td class="red-right"><a class="close-red"><?php echo $this->Html->image("admin/table/icon_close_red.gif", array("alt" => ""));?></a></td>
+				</tr>
+				</table>
+				</div>
+				<!--  end message-red -->
+				
+				<!--  start message-blue -->
+				<div id="message-blue">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="blue-left"><?php echo __('Eventu blu'); ?><a href="">&nbsp;</a> </td>
+					<td class="blue-right"><a class="close-blue"><?php echo $this->Html->image("admin/table/icon_close_blue.gif", array("alt" => ""));?></a></td>
+				</tr>
+				</table>
+				</div>
+				<!--  end message-blue -->
+			
+				<!--  start message-green -->
+				<div id="message-green">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="green-left"><?php echo __('Prodotto aggiunto con successo.'); ?><a href="">&nbsp;</a></td>
+					<td class="green-right"><a class="close-green"><?php echo $this->Html->image("admin/table/icon_close_green.gif", array("alt" => ""));?></a></td>
+				</tr>
+				</table>
+				</div>
+				<!--  end message-green -->
 		
 		 
 				<!--  start product-table ..................................................................................... -->
@@ -51,9 +96,8 @@
 					<tr>
 						<th class="table-header-check"><a id="toggle-all" ></a> </th>
 						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Titolo in Italiano'); ?></span></th>
-						<th class="table-header-repeat line-left minwidth-1"><?php echo $this->Paginator->sort('code');?></th>
-						<th class="table-header-repeat line-left"><span><?php echo __('Categories');?></span></th>
-						<th class="table-header-repeat line-left"><?php echo $this->Paginator->sort('order');?></th>
+						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Codice'); ?></span></th>
+						<th class="table-header-repeat line-left"><span><?php echo __('Ordine');?></span></th>
 						<th class="table-header-repeat line-left" class="actions"><span><?php echo __('Actions');?></span></th>
 					</tr><?php $temp = false;
 					foreach ($products as $product): ?>
@@ -61,11 +105,7 @@
 						<td><input type="checkbox" /></td>
 						<td><?php echo h($product['ProductVersion'][$mainLanguage]['name']); ?>&nbsp;</td>
 						<td><?php echo h($product['Product']['code']); ?></td>
-						<td><?php 
-							foreach ($product['Category'] as $cat) {
-								echo $this->Html->link($cat['name'], array('controller' => 'categories', 'action' => 'view', $cat['id']))."<br />";
-							}?>&nbsp;
-						</td>
+						
 						<td><?php /*echo h($product['Product']['order']); */?>
 							<ul class="ordering"><?php 
 								if ($product['Product']['order']>1) {?>
@@ -79,10 +119,10 @@
 						</td>
 						<td class="options-width act">
 							<span class="btn_yellow">
-								<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>
+								<?php echo $this->Html->link(__('Edit'), array('controller' => 'products', 'action' => 'edit', $product['Product']['id'])); ?>
 							</span>
 							<span class="btn_red">
-								<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $product['Product']['id']), null, __('Are you sure you want to delete # %s?', $product['Product']['id'])); ?>
+								<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'products', 'action' => 'delete', $product['Product']['id']), null, __('Are you sure you want to delete # %s?', $product['Product']['id'])); ?>
 							</span>
 						</td>
 					</tr>
@@ -107,28 +147,7 @@
 			
 			<!--  start paging..................................................... -->
 			<table border="0" cellpadding="0" cellspacing="0" id="paging-table">
-			<tr>
-			<td>
-				<?php echo $this->Paginator->prev('' . __(''), array(), null, array('class' => 'prev disabled page-left'));?>
-				<div id="page-info">
-				<?php
-					echo $this->Paginator->counter(array(
-					'format' => __('Page <strong>{:page}</strong> of {:pages}')
-					));
-					?>
-				
-				</div>
-				<?php echo $this->Paginator->next(__('') . '', array(), null, array('class' => 'next disabled page-right')); ?>
-			</td>
-			<!-- <td>
-			<select  class="styledselect_pages">
-				<option value="">Number of rows</option>
-				<option value="">1</option>
-				<option value="">2</option>
-				<option value="">3</option>
-			</select>
-			</td>-->
-			</tr>
+			
 			</table>
 			<!--  end paging................ -->
 			
@@ -147,6 +166,10 @@
 	</table>
 	<div class="clear">&nbsp;</div>
 
+</div>
+<!--  end content -->
 <div class="clear">&nbsp;</div>
+</div>
+<!--  end content-outer........................................................END -->
 
 <div class="clear">&nbsp;</div>
