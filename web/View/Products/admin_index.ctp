@@ -13,7 +13,7 @@
 	
 			
 		</script><?php
-	$this->end(); 
+	$this->end();
 	?>
 
 
@@ -53,7 +53,6 @@
 						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Titolo in Italiano'); ?></span></th>
 						<th class="table-header-repeat line-left minwidth-1"><?php echo $this->Paginator->sort('code');?></th>
 						<th class="table-header-repeat line-left"><span><?php echo __('Categories');?></span></th>
-						<th class="table-header-repeat line-left"><?php echo $this->Paginator->sort('order');?></th>
 						<th class="table-header-repeat line-left" class="actions"><span><?php echo __('Actions');?></span></th>
 					</tr><?php $temp = false;
 					foreach ($products as $product): ?>
@@ -63,20 +62,10 @@
 						<td><?php echo h($product['Product']['code']); ?></td>
 						<td><?php 
 							foreach ($product['Category'] as $cat) {
-								echo $this->Html->link($cat['name'], array('controller' => 'categories', 'action' => 'view', $cat['id']))."<br />";
+								echo $this->Html->link($cat['name'], array('controller' => 'categories', 'action' => 'viewproducts', $cat['id']))."<br />";
 							}?>&nbsp;
 						</td>
-						<td><?php /*echo h($product['Product']['order']); */?>
-							<ul class="ordering"><?php 
-								if ($product['Product']['order']>1) {?>
-						    		<li><button class="act up_order" onclick="order('products', <?php echo $product['Product']['id'] ?>, -1); return false;" class=''><?php echo __('Sposta su');?></button></li><?php
-						    	}
-						    	if ($product['Product']['order']<$totalProducts) {?>
-						    		<li><button class="act down_order" onclick="order('products', <?php echo $product['Product']['id'] ?>, +1); return false;" class=''><?php echo __('Sposta giu');?></button></li><?php
-						    	}?>
-					    	</ul>
 						
-						</td>
 						<td class="options-width act">
 							<span class="btn_yellow">
 								<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>

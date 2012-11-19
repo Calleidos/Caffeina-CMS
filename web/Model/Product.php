@@ -48,7 +48,6 @@ class Product extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		
 		'Document' => array(
 			'className' => 'Document',
 			'foreignKey' => 'foreign_id',
@@ -61,25 +60,20 @@ class Product extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
-	
-	public $hasAndBelongsToMany = array(
-		'Category' => array(
-			'className' => 'Category',
-			'joinTable' => 'products_categories',
-			'foreignKey' => 'product_id',
-			'associationForeignKey' => 'category_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
 		),
+		'CategoryOrder' => array(
+				'className' => 'CategoryOrder',
+				'foreignKey' => 'product_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+		)
 	);
 
 }

@@ -28,15 +28,30 @@ class CategoriesController extends AppController {
     	$category=$this->Category->read(null, $id);
     
     	$this->set('category', $category);
-    	$this->Category->Product->bindModel(array('hasOne' => array('ProductsCategory')));
-    	$products=$this->Category->Product->find('all', array('conditions'=>array('ProductsCategory.category_id'=>$id)));
-    
+    	$ids=array();
+    	
+    	$categoryOrders=$this->Category->CategoryOrder->find('list', array('conditions' => array('category_id' => $id ), 'order' => array('order'), 'fields' => array('product_id', 'order')));
+    	$products=$this->Category->CategoryOrder->Product->find('all', array('conditions' => array('id' => array_keys($categoryOrders))));
+    	$prod=array();
+    	
+    	foreach($products as $product) {
+    		$prod[$categoryOrders[$product['Product']['id']]]=$product;
+    		$prod[$categoryOrders[$product['Product']['id']]]['Product']['order']=$categoryOrders[$product['Product']['id']];
+    	}
+    	
+    	$products=$prod;
+    	
+    	ksort($products);
+    	
+    	pr($products);
+    	
     	foreach ($products as $key=>$product) {
     		$pvs=array();
     		foreach ($product['ProductVersion'] as $pv)
     			$pvs[$pv['language_id']]=$pv;
     		$products[$key]['ProductVersion']=$pvs;
     	}
+    	
     	$this->set('products', $products);
     
     	$this->set('totalProducts', count($products));
@@ -178,4 +193,26 @@ class CategoriesController extends AppController {
 		$this->Session->setFlash(__('Category was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	
+	
+	public function admin_order() {
+		
+		pr($this->data);
+				
+		$id = $this->data['id'];
+		$order = $this->data['order'];
+		$category = $this->data['category'];
+		$product=$this->Category->CategoryOrder->find('first', array('conditions' => array('product_id'=>$id, 'category_id' => $category)));
+		$changeId=$this->Category->CategoryOrder->find('first', array('conditions' => array('order'=>$product['CategoryOrder']['order']+$order, 'category_id' => $category)));
+		$orderProduct=$product['CategoryOrder']['order'];
+		$orderChangeId=$changeId['CategoryOrder']['order'];
+		$product['CategoryOrder']['order']=$orderChangeId;
+		$changeId['CategoryOrder']['order']=$orderProduct;
+		$this->Category->CategoryOrder->save($product);
+		$this->Category->CategoryOrder->save($changeId);
+		$this->autoRender=false;
+	}
+	
+	
 }

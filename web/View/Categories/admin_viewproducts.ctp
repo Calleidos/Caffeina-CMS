@@ -41,52 +41,7 @@
 		<div id="content-table-inner">
 		
 			<!--  start table-content  -->
-			<div id="table-content">
-			
-				<!--  start message-yellow -->
-				<div id="message-yellow">
-				<table border="0" width="100%" cellpadding="0" cellspacing="0">
-				<tr>
-					<td class="yellow-left"><?php echo __('Hai un nuovo messaggio!'); ?><a href="#">Go to Inbox.</a></td>
-					<td class="yellow-right"><a class="close-yellow"><?php echo $this->Html->image("admin/table/icon_close_yellow.gif", array("alt" => ""));?></a></td>
-				</tr>
-				</table>
-				</div>
-				<!--  end message-yellow -->
-				
-				<!--  start message-red -->
-				<div id="message-red">
-				<table border="0" width="100%" cellpadding="0" cellspacing="0">
-				<tr>
-					<td class="red-left"><?php echo __('Errore'); ?><a href="#">Admin</a></td>
-					<td class="red-right"><a class="close-red"><?php echo $this->Html->image("admin/table/icon_close_red.gif", array("alt" => ""));?></a></td>
-				</tr>
-				</table>
-				</div>
-				<!--  end message-red -->
-				
-				<!--  start message-blue -->
-				<div id="message-blue">
-				<table border="0" width="100%" cellpadding="0" cellspacing="0">
-				<tr>
-					<td class="blue-left"><?php echo __('Eventu blu'); ?><a href="">&nbsp;</a> </td>
-					<td class="blue-right"><a class="close-blue"><?php echo $this->Html->image("admin/table/icon_close_blue.gif", array("alt" => ""));?></a></td>
-				</tr>
-				</table>
-				</div>
-				<!--  end message-blue -->
-			
-				<!--  start message-green -->
-				<div id="message-green">
-				<table border="0" width="100%" cellpadding="0" cellspacing="0">
-				<tr>
-					<td class="green-left"><?php echo __('Prodotto aggiunto con successo.'); ?><a href="">&nbsp;</a></td>
-					<td class="green-right"><a class="close-green"><?php echo $this->Html->image("admin/table/icon_close_green.gif", array("alt" => ""));?></a></td>
-				</tr>
-				</table>
-				</div>
-				<!--  end message-green -->
-		
+			<div id="table-content">		
 		 
 				<!--  start product-table ..................................................................................... -->
 				<form id="mainform" action="">
@@ -109,10 +64,10 @@
 						<td><?php /*echo h($product['Product']['order']); */?>
 							<ul class="ordering"><?php 
 								if ($product['Product']['order']>1) {?>
-						    		<li><button class="act up_order" onclick="order('products', <?php echo $product['Product']['id'] ?>, -1); return false;" class=''><?php echo __('Sposta su');?></button></li><?php
+						    		<li><button class="act up_order" onclick="order('products', <?php echo $category["Category"]["id"]; ?>, <?php echo $product['Product']['id'] ?>, -1); return false;" class=''><?php echo __('Sposta su');?></button></li><?php
 						    	}
 						    	if ($product['Product']['order']<$totalProducts) {?>
-						    		<li><button class="act down_order" onclick="order('products', <?php echo $product['Product']['id'] ?>, +1); return false;" class=''><?php echo __('Sposta giu');?></button></li><?php
+						    		<li><button class="act down_order" onclick="order('products', <?php echo $category["Category"]["id"]; ?>, <?php echo $product['Product']['id'] ?>, +1); return false;" class=''><?php echo __('Sposta giu');?></button></li><?php
 						    	}?>
 					    	</ul>
 						

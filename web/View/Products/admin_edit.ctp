@@ -1,4 +1,5 @@
 <?php 
+pr($this->request->data);
 //echo $this->Html->css('cake.generic');
  echo $this->Html->css('main');
 		
@@ -115,9 +116,6 @@
 					<?php
 						if (isset($this->data['Product']['id']))
 							echo $this->Form->input('id');
-						if (isset($order))
-							echo $this->Form->input('order');
-							
 						echo $this->Form->input('code');
 					?>
 					<br />
@@ -158,7 +156,9 @@
 					</td>
 					<td colspan="2" style="vertical-align:top;width:130px;">
 						<?php
-						echo $this->Form->input('Category', array('type' => 'select', 'multiple'=>"checkbox", 'div' =>"", 'label' => false));?>
+						if (!isset($selectedCategories))
+							$selectedCategories=array();
+						echo $this->Form->input('CategoryOrder.category_id', array('type' => 'select', 'multiple'=>"checkbox", 'div' =>"", 'label' => false, 'selected' => $selectedCategories));?>
 					
 						<a class="fancy-modal" href="/admin/categories/addAjax/Product">
 							

@@ -36,18 +36,17 @@ class ProductsController extends AppController {
 	public function admin_index() {
 		$this->Product->recursive=-1;
 		$this->Product->Behaviors->attach('Containable');
-		$this->paginate['contain']=array('Category', "ProductVersion");
+		$this->paginate['contain']=array('CategoryOrder', "ProductVersion");
+		$categories=$this->Product->CategoryOrder->Category->find('list', array('fields'=> array('id', 'name')));
 		$products=$this->paginate();
 		foreach ($products as $key=>$product) {
 			$pvs=array();
 			foreach ($product['ProductVersion'] as $pv)
 				$pvs[$pv['language_id']]=$pv;
 			$products[$key]['ProductVersion']=$pvs;
+			foreach ($product['CategoryOrder'] as $catOrd)
+				$products[$key]['Category'][]=array('id' => $catOrd['category_id'], 'name' => $categories[$catOrd['category_id']] );
 		}
-		$this->_flash(__('Normal message.', true),'red');
-        $this->_flash(__('Info message.', true),'yellow');
-        $this->_flash(__('Success message.', true),'green');
-        $this->_flash(__('Warning message.', true),'blue');
 		$this->set('products', $products);
 		$this->set('totalProducts', $this->Product->find('count'));
 	}
@@ -75,9 +74,9 @@ class ProductsController extends AppController {
  * @return void
  *//*
 	public function admin_index() {
-		$nestedCategories=$this->Product->Category->find('threaded', array('conditions'=> array('Category.foreign_model' => 'Product')));
+		$nestedCategories=$this->Product->CategoryOrder->Category->find('threaded', array('conditions'=> array('Category.foreign_model' => 'Product')));
 		
-		$categoryTree=$this->Product->Category->generateTreeList(array('Category.foreign_model' => 'Product'));
+		$categoryTree=$this->Product->CategoryOrder->Category->generateTreeList(array('Category.foreign_model' => 'Product'));
 		//pr($categoryTree);
 		//pr($nestedCategories);
 		
@@ -122,32 +121,6 @@ class ProductsController extends AppController {
 		$this->set('product', $this->Product->read(null, $id));
 	}
 	
-	public function admin_order() {
-		$id = $this->data['id'];
-		$order = $this->data['order'];
-		$this->Product->recursive=0;
-		$product=$this->Product->find('first', array('conditions' => array('Product.id'=>$id)));
-		$changeId=$this->Product->find('first', array('conditions' => array('Product.order'=>$product['Product']['order']+$order)));
-		$orderProduct=$product['Product']['order'];
-		$orderChangeId=$changeId['Product']['order'];
-		$product['Product']['order']=$orderChangeId;
-		$changeId['Product']['order']=$orderProduct;
-		$this->Product->save($product);
-		$this->Product->save($changeId);
-		$this->autoRender=false;
-	}
-	
-	public function admin_reorder() {
-		$this->Product->recursive=0;
-		$products=$this->Product->find("all", array("order"=>array("Product.order")));
-		$i=1;
-		foreach($products as $key=>$product){
-			$products[$key]['Product']['order']=$i;
-			$i++; 
-		}
-		$this->Product->saveMany($products);
-		$this->autoRender=false;
-	}
 
 /**
  * admin_add method
@@ -161,19 +134,32 @@ class ProductsController extends AppController {
 				if (trim(preg_replace("/[^a-zA-Z0-9\s]/", "_", $pv['seo_title']))=='')
 					$this->request->data["ProductVersion"][$id]['seo_title']=trim(preg_replace("/[^a-zA-Z0-9\s]/", "_", $pv['name']));
 			}
+			$categories=$this->request->data['CategoryOrder'];
+			unset($this->request->data['CategoryOrder']);
+			
 			if ($this->Product->saveAll($this->request->data)) {
 				$id=$this->Product->id;
 				foreach ($this->request->data['Image'] as $image) {
 					$image['foreign_id']=$id;
 					$this->Product->Image->save($image);
 				}
+				$defC=array();
+				foreach ($categories['category_id'] as $cat) {
+					$defC[$cat]=array('CategoryOrder' => array(
+							'product_id' 	=> $id,
+							'category_id' 	=> $cat,
+							'order'			=> count($this->Product->CategoryOrder->find('list', array('conditions' => array('category_id' => $cat))))+1
+					));
+				}
+				if(!empty($defC))
+					$this->Product->CategoryOrder->saveAll($defC);
 				$this->Session->setFlash(__('The product has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The product could not be saved. Please, try again.'));
 			}
 		}
-		$categories = $this->Product->Category->generateTreeList(null, null, null, "- ");
+		$categories = $this->Product->CategoryOrder->Category->generateTreeList(null, null, null, "- ");
 		$this->set(compact('categories'));
 		$languages=$this->Product->ProductVersion->Language->find('list', array('order' => array('Language.order')));
 		$this->set("languages", $languages);
@@ -197,7 +183,31 @@ class ProductsController extends AppController {
 				if (trim(preg_replace("/[^a-zA-Z0-9\s]/", "_", $pv['seo_title']))=='')
 					$this->request->data["ProductVersion"][$id]['seo_title']=trim(preg_replace("/[^a-zA-Z0-9\s]/", "_", $pv['name']));
 			}
+			$categories=$this->Product->CategoryOrder->find('all', array('conditions' => array('product_id' => $this->request->data['Product']['id']), 'fields' => array('id', 'category_id', 'product_id', 'order')));
+			$originalCat=$this->Product->CategoryOrder->find('list', array('conditions' => array('product_id' => $this->request->data['Product']['id']), 'fields' => array('id')));
+			$c=array();
+			foreach ($categories as $cat)
+				$c[$cat['CategoryOrder']['category_id']]=$cat;
+			$categories=$this->request->data['CategoryOrder'];
+			unset($this->request->data['CategoryOrder']);
+			$defC=array();
+			foreach ($categories['category_id'] as $cat) {
+				if (!array_key_exists($cat, $c)) {
+					$defC[$cat]=array('CategoryOrder' => array(
+						'product_id' 	=> $this->request->data['Product']['id'],
+						'category_id' 	=> $cat,
+						'order'			=> count($this->Product->CategoryOrder->find('list', array('conditions' => array('category_id' => $cat))))+1
+					));
+				} else {
+					$defC[$cat]=$c[$cat];
+				}
+			}
+			
 			if ($this->Product->saveAll($this->request->data)) {
+				if(!empty($originalCat))
+					$this->Product->CategoryOrder->deleteAll(array('CategoryOrder.id'=>$originalCat));
+				if(!empty($defC))
+					$this->Product->CategoryOrder->saveAll($defC);
 				$this->Session->setFlash(__('The product has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -211,7 +221,12 @@ class ProductsController extends AppController {
 			$product['ProductVersion']=$versions;
 			$this->request->data=$product;
 		}
-		$categories = $this->Product->Category->generateTreeList(null, null, null, "- ");
+		$categories = $this->Product->CategoryOrder->Category->generateTreeList(null, null, null, "- ");
+		$selected = array();
+		foreach ($product['CategoryOrder'] as $catOrd) {
+			$selected[]=$catOrd['category_id'];
+		}
+		$this->set('selectedCategories', $selected);
 		$this->set(compact('categories'));
 		$this->set("languages", $this->Product->ProductVersion->Language->find('list', array('conditions' => array('Language.active'=>true), 'order' => array('Language.order')) ));
 	}
@@ -232,11 +247,29 @@ class ProductsController extends AppController {
 		}
 		if ($this->Product->delete()) {
 			$this->Session->setFlash(__('Product deleted'));
-			$this->admin_reorder();
+			$this->admin_reorder($this->Product->CategoryOrder->find('list', array('conditions' => array('product_id' => $id), 'fields' => array('category_id'))));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->Session->setFlash(__('Product was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	public function admin_reorder($categories=null) {
+		if ($categories<>null && !empty($categories) ) {
+			foreach ($categories as $category) {
+				$this->Category->CategoryOrder->recursive=0;
+				$products=$this->Category->CategoryOrder->find("all", array('conditions' => array('category_id' => $category), "order"=>array("order")));
+				$i=1;
+				foreach($products as $key=>$product){
+					$products[$key]['CategoryOrder']['order']=$i;
+					$i++;
+				}
+				$this->Category->CategoryOrder->saveMany($products);
+				$this->autoRender=false;
+			}
+		}
+	}
+	
+	
 }
 

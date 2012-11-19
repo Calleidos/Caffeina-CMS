@@ -139,19 +139,21 @@ function orderIcons () {
 					
 } 
 
-function order (controller, id, order) {
+function order (controller, category, id, order) {
 	$.ajax({
 		async:true, 
 		data:{
 			id			: id,
-			order 		: order
+			order 		: order,
+			category	: category
+			
 		},
 		dataType:"html", 
 		success:function (data) {
 			self.location.reload();
 		}, 
 		type:"post",
-		url:"/admin/"+controller+"/order"
+		url:"/admin/categories/order"
 	});
 }
 
