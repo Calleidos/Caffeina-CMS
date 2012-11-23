@@ -24,15 +24,27 @@
 					$this->end();?>
 				
 				<div class="images" style="margin-top:30px;">
-				<?php echo $this->Form->create('Image', array('type' => 'file')); ?>
+				<?php echo $this->Form->create('Image', array('type' => 'file', 'class'=>'legend')); ?>
 					<fieldset>
-						<legend><?php echo __('Add Image'); ?></legend><?php
+						<legend><?php echo __('Aggiungi immagine'); ?></legend><?php
 						echo $this->Form->input('Image.name', array("class" => "page-title ui-corner-all tabs_input"));
 						echo $this->Form->input('Image.foreign_id', array('value'=>$foreign_id, 'type' =>"hidden"));
 						echo $this->Form->input('Image.foreign_model', array('value'=>"Product", 'type' =>"hidden"));
-						echo $this->Form->input('Image.tipologia', array('type'=>'select', 'options'=>Configure::read("tipologiaImmagine")));
-						echo $this->Form->input('Image.fileName', array('type' => 'file'));
-						echo $this->Form->input('Image.order', array('type' => 'hidden')); ?>
+						echo $this->Form->input('Image.tipologia', array('type'=>'select', 'options'=>Configure::read("tipologiaImmagine"), 'class' => 'styledselect'));
+						?>
+						<table cellspacing="0" cellpadding="0" style="width:100%">
+						<tr>
+						<td class="fileupload">
+						<?php echo $this->Form->input('Image.fileName', array('type' => 'file', 'class'=>'file_1 page-title ui-corner-all tabs_input'));?>
+						</td>
+						<td>
+						<div class="bubble-left"></div>
+						<div class="bubble-inner">JPEG, GIF, PNG 5MB max</div>
+						<div class="bubble-right"></div>
+						</td>
+						</tr>
+						</table>
+						<?php echo $this->Form->input('Image.order', array('type' => 'hidden')); ?>
 					</fieldset>
 				<span class="act input btn_green">
 					<?php echo $this->Form->end('Upload'); ?>

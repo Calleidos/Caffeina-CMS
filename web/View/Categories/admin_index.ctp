@@ -1,54 +1,110 @@
-<div class="categories index">
-	<h2><?php echo __('Categories');?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php echo $this->Paginator->sort('parent_id');?></th>
-			<th><?php echo $this->Paginator->sort('lft');?></th>
-			<th><?php echo $this->Paginator->sort('rght');?></th>
-			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th class="actions"><?php echo __('Actions');?></th>
-	</tr>
-	<?php
-	foreach ($categories as $category): ?>
-	<tr>
-		<td><?php echo h($category['Category']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($category['ParentCategory']['name'], array('controller' => 'categories', 'action' => 'view', $category['ParentCategory']['id'])); ?>
-		</td>
-		<td><?php echo h($category['Category']['lft']); ?>&nbsp;</td>
-		<td><?php echo h($category['Category']['rght']); ?>&nbsp;</td>
-		<td><?php echo h($category['Category']['name']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $category['Category']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $category['Category']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $category['Category']['id']), null, __('Are you sure you want to delete # %s?', $category['Category']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+<?php 
+	$mainLanguage=Configure::read('mainLanguage');
+	$this->element("fancybox_links");
+		$this->Html->css('datetimepicker', null, array('inline' => false));
+		$this->Html->script("/js/functions.js", array('inline' => false));
+		$this->append('script');?>
+		<script type="text/javascript">		
+			jQuery(document).ready(function($){
+				orderIcons();
+				createIcons();
+								
+			});
+	
+			
+		</script><?php
+	$this->end(); 
 	?>
+
+
+	<!--  start page-heading -->
+	<div id="page-heading">
+		<h1><?php echo __("Elenco categorie:"); ?></h1>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Category'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Categories'), array('controller' => 'categories', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Parent Category'), array('controller' => 'categories', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Posts'), array('controller' => 'posts', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+	<!-- end page-heading -->
+
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+	<tr>
+		<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowleft.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
+		<th class="topleft"></th>
+		<td id="tbl-border-top">&nbsp;</td>
+		<th class="topright"></th>
+		<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowright.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
+	</tr>
+	<tr>
+		<td id="tbl-border-left"></td>
+		<td>
+		<!--  start content-table-inner ...................................................................... START -->
+		<div id="content-table-inner">
+		
+			<!--  start table-content  -->
+			<div id="table-content">		
+		 
+				<!--  start product-table ..................................................................................... -->
+				<form id="mainform" action="">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+				<h2><?php echo __('Prodotti');?></h2>
+					
+					<tr>
+						<th class="table-header-check"><a id="toggle-all" ></a> </th>
+						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Titolo in Italiano'); ?></span></th>
+						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Codice'); ?></span></th>
+						<th class="table-header-repeat line-left" class="actions"><span><?php echo __('Actions');?></span></th>
+					</tr><?php $temp = false;
+					foreach ($categories as $key=>$category): ?>
+					<tr <?php  if($temp == true){echo 'class="alternate-row"'; $temp = false;}else{$temp = true;} ?> >
+						<td><input type="checkbox" /></td>
+						<td><?php echo $this->Html->link($category, array('controller' => 'categories'	, 'action' => 'edit', $key)); ?>&nbsp;</td>
+						<td><?php echo h($key); ?></td>
+						
+						<td class="options-width act">
+							<span class="btn_yellow">
+								<?php echo $this->Html->link(__('Edit'), array('controller' => 'categories'	, 'action' => 'edit', $key)); ?>
+							</span>
+							<span class="btn_red">
+								<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'categories', 'action' => 'delete', $key), null, __('Are you sure you want to delete # %s?', $category['id'])); ?>
+							</span>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+				</tr>
+				</table>
+				<!--  end product-table................................... --> 
+				</form>
+			</div>
+			<!--  end content-table  -->
+		
+			<!--  start actions-box ............................................... -->
+			<!-- <div id="actions-box">
+				<a href="" class="action-slider"></a>
+				<div id="actions-box-slider">
+					<a href="" class="action-edit">Edit</a>
+					<a href="" class="action-delete">Delete</a>
+				</div>
+				<div class="clear"></div>
+			</div>-->
+			<!-- end actions-box........... -->
+			
+			<!--  start paging..................................................... -->
+			<table border="0" cellpadding="0" cellspacing="0" id="paging-table">
+			
+			</table>
+			<!--  end paging................ -->
+			
+			<div class="clear"></div>
+		 
+		</div>
+		<!--  end content-table-inner ............................................END  -->
+		</td>
+		<td id="tbl-border-right"></td>
+	</tr>
+	<tr>
+		<th class="sized bottomleft"></th>
+		<td id="tbl-border-bottom">&nbsp;</td>
+		<th class="sized bottomright"></th>
+	</tr>
+	</table>
+	<div class="clear">&nbsp;</div>
+
+
+<div class="clear">&nbsp;</div>

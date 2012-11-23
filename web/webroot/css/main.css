@@ -67,7 +67,7 @@ ul, ol {
 	margin-bottom:10px;
 	
 }
-.main-editor label{
+.main-editor label, .span_container label{
 	color:#808080;
 	width:80px;
 	min-width:80px;
@@ -86,4 +86,5 @@ ul, ol {
 .select div.selectbox-wrapper3{
 	left:122px !important;
 	margin-top:-8px;
+	z-index: 9;
 }

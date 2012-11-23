@@ -16,7 +16,9 @@ class CategoriesController extends AppController {
  */
 	public function admin_index() {
         $data = $this->Category->generateTreeList(null, null, null, '- ');
-        debug($data); die;
+
+        $this->set('totalCategories', $this->Category->find('count'));
+        $this->set("categories" , $data);
     }
     
     public function admin_viewproducts($id=null) {
@@ -102,10 +104,14 @@ class CategoriesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Category->create();
 			if ($this->Category->save($this->request->data)) {
-				$this->Session->setFlash(__('The category has been saved'));
+				/*$this->Session->setFlash(__('The category has been saved'));*/
+
+				$this->_flash(__('The category has been saved.', true),'green');
+				
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The category could not be saved. Please, try again.'));
+				/*$this->Session->setFlash(__('The category could not be saved. Please, try again.'));*/
+			$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
 			}
 		}
 		$parentCategories = $this->Category->generateTreeList(null, null, null, "- ");
@@ -124,10 +130,14 @@ class CategoriesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Category->create();
 			if ($this->Category->save($this->request->data)) {
-				$this->Session->setFlash(__('The category has been saved'));
+				/*$this->Session->setFlash(__('The category has been saved'));*/
+
+				$this->_flash(__('The category has been saved.', true),'green');
+				
 				$this->redirect(array('action' => 'admin_close', $this->Category->id));
 			} else {
-				$this->Session->setFlash(__('The category could not be saved. Please, try again.'));
+				/*$this->Session->setFlash(__('The category could not be saved. Please, try again.'));*/
+			$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
 			}
 		}
 		$parentCategories = $this->Category->generateTreeList(null, null, null, "- ");
@@ -135,10 +145,12 @@ class CategoriesController extends AppController {
 		if (isset($model))
 			$this->set("model", $model);
 		$this->render('admin_edit');
+		$this->layout = 'iframe';
 	}
 	
 	public function admin_close($id) {
 		$this->set("id", $id);
+		$this->layout = 'iframe';
 	}
 	
 	public function admin_createSelect($model=null) {
@@ -159,11 +171,16 @@ class CategoriesController extends AppController {
 			throw new NotFoundException(__('Invalid category'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
+
 			if ($this->Category->save($this->request->data)) {
-				$this->Session->setFlash(__('The category has been saved'));
+				/*$this->Session->setFlash(__('The category has been saved'));*/
+
+				$this->_flash(__('The category has been saved.', true),'green');
+				
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The category could not be saved. Please, try again.'));
+				/*$this->Session->setFlash(__('The category could not be saved. Please, try again.'));*/
+				$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
 			}
 		} else {
 			$this->request->data = $this->Category->read(null, $id);
@@ -187,10 +204,14 @@ class CategoriesController extends AppController {
 			throw new NotFoundException(__('Invalid category'));
 		}
 		if ($this->Category->delete()) {
-			$this->Session->setFlash(__('Category deleted'));
+			/*$this->Session->setFlash(__('Category deleted'));*/
+
+			$this->_flash(__('Category deleted!', true),'green');
+			
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Category was not deleted'));
+		/*$this->Session->setFlash(__('Category was not deleted'));*/
+			$this->_flash(__('Category was not deleted.', true),'red');
 		$this->redirect(array('action' => 'index'));
 	}
 	

@@ -32,8 +32,8 @@
 		
 		echo $this->Html->meta('icon');
 
-		/*echo $this->Html->css('cake.generic');
-		echo $this->Html->css('main');*/
+		/*echo $this->Html->css('cake.generic');*/
+		echo $this->Html->css('main');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -124,8 +124,8 @@ echo $this->Html->script('js_admin/jquery.filestyle');
 <script type="text/javascript" charset="utf-8">
   $(function() {
       $("input.file_1").filestyle({ 
-          image: "../../img/admin/forms/choose-file.gif",
-          imageheight : 21,
+          image: "/img/admin/forms/upload_file.gif",
+          imageheight : 46,
           imagewidth : 78,
           width : 310
       });

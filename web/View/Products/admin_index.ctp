@@ -58,11 +58,11 @@
 					foreach ($products as $product): ?>
 					<tr <?php  if($temp == true){echo 'class="alternate-row"'; $temp = false;}else{$temp = true;} ?> >
 						<td><input type="checkbox" /></td>
-						<td><?php echo h($product['ProductVersion'][$mainLanguage]['name']); ?>&nbsp;</td>
+						<td><?php echo $this->Html->link(__(h($product['ProductVersion'][$mainLanguage]['name'])), array('action' => 'edit', $product['Product']['id']), array('class' => 'cat_link')); ?>&nbsp;</td>
 						<td><?php echo h($product['Product']['code']); ?></td>
 						<td><?php 
 							foreach ($product['Category'] as $cat) {
-								echo $this->Html->link($cat['name'], array('controller' => 'categories', 'action' => 'viewproducts', $cat['id']))."<br />";
+								echo $this->Html->link($cat['name'], array('controller' => 'categories', 'action' => 'viewproducts', $cat['id']), array('class' => 'cat_link')).",&nbsp;";
 							}?>&nbsp;
 						</td>
 						

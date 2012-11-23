@@ -153,10 +153,17 @@ class ProductsController extends AppController {
 				}
 				if(!empty($defC))
 					$this->Product->CategoryOrder->saveAll($defC);
-				$this->Session->setFlash(__('The product has been saved'));
+				/*$this->Session->setFlash(__('The product has been saved'));*/
+
+				$this->_flash(__('The product has been saved.', true),'green');
+				
+				
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The product could not be saved. Please, try again.'));
+				/*$this->Session->setFlash(__('The product could not be saved. Please, try again.'));*/
+
+				$this->_flash(__('The product could not be saved. Please, try again.', true),'red');
+				
 			}
 		}
 		$categories = $this->Product->CategoryOrder->Category->generateTreeList(null, null, null, "- ");
@@ -208,10 +215,12 @@ class ProductsController extends AppController {
 					$this->Product->CategoryOrder->deleteAll(array('CategoryOrder.id'=>$originalCat));
 				if(!empty($defC))
 					$this->Product->CategoryOrder->saveAll($defC);
-				$this->Session->setFlash(__('The product has been saved'));
+				/*$this->Session->setFlash(__('The product has been saved'));*/
+				$this->_flash(__('The product has been saved.', true),'green');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The product could not be saved. Please, try again.'));
+				/*$this->Session->setFlash(__('The product could not be saved. Please, try again.'));*/
+				$this->_flash(__('The product could not be saved. Please, try again.', true),'red');
 			}
 		} else {
 			$product = $this->Product->find('first', array('conditions'=>array('Product.id' => $id)));
@@ -246,11 +255,18 @@ class ProductsController extends AppController {
 			throw new NotFoundException(__('Invalid product'));
 		}
 		if ($this->Product->delete()) {
-			$this->Session->setFlash(__('Product deleted'));
+			/*$this->Session->setFlash(__('Product deleted'));*/
+
+			$this->_flash(__('Product has been deleted.', true),'green');
+			
 			$this->admin_reorder($this->Product->CategoryOrder->find('list', array('conditions' => array('product_id' => $id), 'fields' => array('category_id'))));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Product was not deleted'));
+		/*$this->Session->setFlash(__('Product was not deleted'));*/
+
+			$this->_flash(__('Product was not deleted.', true),'red');
+			
+			
 		$this->redirect(array('action' => 'index'));
 	}
 	

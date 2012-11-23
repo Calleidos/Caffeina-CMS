@@ -32,8 +32,8 @@
 		
 		echo $this->Html->meta('icon');
 
-		/*echo $this->Html->css('cake.generic');
-		echo $this->Html->css('main');*/
+		/*echo $this->Html->css('cake.generic');*/
+		echo $this->Html->css('main');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -226,6 +226,9 @@ $('#d').trigger('change');
 });
 </script>
 
+
+
+
 <!-- MUST BE THE LAST SCRIPT IN <HEAD></HEAD></HEAD> png fix -->
 <?php 
 	echo $this->Html->script('js_admin/jquery.pngFix.pack');
@@ -246,7 +249,7 @@ $(document).pngFix( );
 
 	<!-- start logo -->
 	<div id="logo">
-	<a href=""><?php echo $this->Html->image("admin/shared/logo.png", array("alt" => "", "height" => "40px", "width" => "156px"));?></a>
+	<a href=""><?php echo $this->Html->image("admin/shared/logo.png", array("alt" => ""));?></a>
 	</div>
 	<!-- end logo -->
 	
@@ -323,20 +326,21 @@ $(document).pngFix( );
 		<div class="nav">
 		<div class="table">
 		
-		<ul class="select"><li><a href="#nogo"><b><?php echo __('Pannello di controllo'); ?></b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<?php /*?><ul class="select"><li><a href="#nogo"><b><?php echo $this->Html->link(__('Aggiungi prodotto'), array('controller' => 'products', 'action' => 'add', 'prefix'=>'admin'), array('class' => ''));?></b><!--[if IE 7]><!--></a><!--<![endif]-->
 		
 		</li>
 		</ul>
 		
-		<div class="nav-divider">&nbsp;</div>
+		<div class="nav-divider">&nbsp;</div><?php */ ?>
 		                    
-		<ul class="current"><li><a href="#nogo"><b><?php echo __('Prodotti'); ?></b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<ul class="current"><li><a href="#nogo"><b><?php echo __('Prodotti');?></b><!--[if IE 7]><!--></a><!--<![endif]-->
 		<!--[if lte IE 6]><table><tr><td><![endif]-->
 		<div class="select_sub show">
 			<ul class="sub">
 				<li class="sub_show"><?php echo $this->Html->link(__('Elenco prodotti'), array('controller' => 'products', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
 				<li><?php echo $this->Html->link(__('Aggiungi prodotto'), array('controller' => 'products', 'action' => 'add', 'prefix'=>'admin'), array('class' => ''));?></li>
-				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'products', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Elenco categorie'), array('controller' => 'categories', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'trash', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
 			</ul>
 		</div>
 		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -345,27 +349,13 @@ $(document).pngFix( );
 		
 		<div class="nav-divider">&nbsp;</div>
 		
-		<ul class="select"><li><a href="#nogo"><b><?php echo __('Categorie '); ?></b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<ul class="select"><li><a href="#nogo"><b><?php echo __('Utenti');?></b><!--[if IE 7]><!--></a><!--<![endif]-->
 		<!--[if lte IE 6]><table><tr><td><![endif]-->
 		<div class="select_sub">
 			<ul class="sub">
-				<li><a href="#nogo"><?php echo __('Elenco categorie '); ?></a></li>
-				<li><a href="#nogo"><?php echo __('Aggiungi categorie'); ?></a></li>
-			</ul>
-		</div>
-		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-		</li>
-		</ul>
-		
-		<div class="nav-divider">&nbsp;</div>
-		
-		<ul class="select"><li><a href="#nogo"><b><?php echo __('Utenti'); ?></b><!--[if IE 7]><!--></a><!--<![endif]-->
-		<!--[if lte IE 6]><table><tr><td><![endif]-->
-		<div class="select_sub">
-			<ul class="sub">
-				<li><a href="#nogo"><?php echo __('Elenco utenti'); ?></a></li>
-				<li><a href="#nogo"><?php echo __('Aggiungi cliente'); ?></a></li>
-				<li><a href="#nogo"><?php echo __('Impostazioni clienti'); ?></a></li>
+				<li><?php echo $this->Html->link(__('Elenco utenti'), array('controller' => 'users', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Aggiungi utente'), array('controller' => 'users', 'action' => 'add', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Impostazioni utenti'), array('controller' => 'users', 'action' => 'settings', 'prefix'=>'admin'), array('class' => ''));?></li>
 			 
 			</ul>
 		</div>
@@ -375,13 +365,13 @@ $(document).pngFix( );
 		
 		<div class="nav-divider">&nbsp;</div>
 		
-		<ul class="select"><li><a href="#nogo"><b><?php echo __('News'); ?></b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<ul class="select"><li><a href="#nogo"><b><?php echo __('News');?></b><!--[if IE 7]><!--></a><!--<![endif]-->
 		<!--[if lte IE 6]><table><tr><td><![endif]-->
 		<div class="select_sub">
 			<ul class="sub">
-				<li><a href="#nogo"><?php echo __('Elenco notizie'); ?></a></li>
-				<li><a href="#nogo"><?php echo __('Aggiungi notizia'); ?></a></li>
-				<li><a href="#nogo"><?php echo __('Cestino'); ?></a></li>
+				<li><?php echo $this->Html->link(__('Elenco notizie'), array('controller' => 'news', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Aggiungi notizia'), array('controller' => 'news', 'action' => 'add', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'trash', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
 			</ul>
 		</div>
 		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -413,36 +403,18 @@ $(document).pngFix( );
 				    	echo $this->Session->flash(); // the standard messages
 				    // multiple messages
 				    if ($messages = $this->Session->read('Message.multiFlash')) {?>
-				    <table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
-						<tr>
-							<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowleft.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
-							<th class="topleft"></th>
-							<td id="tbl-border-top">&nbsp;</td>
-							<th class="topright"></th>
-							<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowright.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
-						</tr>
-						<tr>
-							<td id="tbl-border-left"></td>
-							<td>
+				   
 							<!--  start content-table-inner ...................................................................... START -->
 							<div id="content-table-inner">
 							
 								<!--  start table-content  -->
-								<div id="table-content"><?php 
+								<div id="table-content" style="min-height:auto;"><?php 
 				        foreach($messages as $k=>$v){
 				        	echo $this->Session->flash('multiFlash.'.$k);
 				        }?>
 				        </div>
 						</div>
-					</td>
-					<td id="tbl-border-right"></td>
-					</tr>
-					<tr>
-						<th class="sized bottomleft"></th>
-						<td id="tbl-border-bottom">&nbsp;</td>
-						<th class="sized bottomright"></th>
-					</tr>
-				</table>
+					
 				<div class="clear">&nbsp;</div><?php 
 				    }
 				?>

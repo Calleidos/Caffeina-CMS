@@ -20,6 +20,8 @@
 		</tbody>
 	</table>
 	<a class="fancy-modal" href="/admin/<?php echo Inflector::pluralize($details['type']); ?>/add/<?php echo $details['model'] ?>/<?php if (isset($this->request->data[$details['model']]['id'])) echo $this->request->data[$details['model']]['id'] ?>">
-		<button onclick="return false;" class="add-button"><?php echo __("Add"); ?><?php echo ucwords($details['type']); ?></button>
+		<button class="act plus" onclick="return false;" class="add-button">
+			<?php echo __("Aggiungi"); ?>&nbsp;<?php echo ucwords($details['type']); ?>
+		</button>
 	</a>
 </div>

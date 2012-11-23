@@ -44,18 +44,27 @@ $(document).ready(function () {
 // 3 - MESSAGE BOX FADING SCRIPTS ---------------------------------------------------------------------
 
 $(document).ready(function() {
+	$("#message-yellow").delay(800).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1);
+	$("#message-blue").delay(800).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1);
+	//$("#message-green").delay(800).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1);
+	$("#message-red").delay(800).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1).delay(200).fadeTo(100, 0.01).delay(200).fadeTo(100, 1);
+	
 	$(".close-yellow").click(function () {
-		$("#message-yellow").fadeOut("slow");
+		$("#message-yellow").stop().fadeOut("slow");
 	});
 	$(".close-red").click(function () {
-		$("#message-red").fadeOut("slow");
+		$("#message-red").stop().fadeOut("slow");
 	});
 	$(".close-blue").click(function () {
-		$("#message-blue").fadeOut("slow");
+		$("#message-blue").stop().fadeOut("slow");
 	});
 	$(".close-green").click(function () {
-		$("#message-green").fadeOut("slow");
+		$("#message-green").stop().fadeOut("slow");
 	});
+	
+	
+		// END ----------------------------- 3
+	
 });
 
 // END ----------------------------- 3

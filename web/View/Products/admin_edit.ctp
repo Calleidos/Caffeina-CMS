@@ -1,5 +1,4 @@
 <?php 
-pr($this->request->data);
 //echo $this->Html->css('cake.generic');
  echo $this->Html->css('main');
 		
@@ -55,7 +54,7 @@ pr($this->request->data);
 
 	<!--  start page-heading -->
 	<div id="page-heading">
-		<h1><?php echo __('Elenco prodotti')?></h1>
+		<h1><?php echo __('Modifica Prodotto')?></h1>
 	</div>
 	<!-- end page-heading -->
 
@@ -112,11 +111,11 @@ pr($this->request->data);
 		
 		
 				<tr>
-					<td colspan="2">
+					<td colspan="2" class="span_container">
 					<?php
 						if (isset($this->data['Product']['id']))
 							echo $this->Form->input('id');
-						echo $this->Form->input('code');
+						echo $this->Form->input('code', array('class' => 'page-title ui-corner-all tabs_input'));
 					?>
 					<br />
 					<div class="tabs main-editor">
@@ -138,7 +137,8 @@ pr($this->request->data);
 										}
 										echo $this->Form->input("ProductVersion.$id.name", array("class" => "page-title ui-corner-all tabs_input"));
 										echo $this->Form->input("ProductVersion.$id.slug", array("class" => "page-title ui-corner-all tabs_input", "disabled" => true));?>
-										<button id="modify-slug-<?php echo $id ?>" onclick="modifySlug(<?php echo $id ?>); return false;" class="edit-file"><?php echo _("Modify Slug"); ?></button><?php 
+										<button class="act btn_yellow" style="float: none;left: 260px;position: relative;top: -45px;" id="modify-slug-<?php echo $id ?>" onclick="modifySlug(<?php echo $id ?>); return false;"><?php echo _("Modify Slug"); ?></button>
+										<?php 
 										echo $this->Form->input("ProductVersion.$id.active", array("options" => array(0 => __('Disabled'), 1=> __('Hidden'), 2=>__('Enabled') ), "class" => "styledselect"));
 										echo $this->Form->input("ProductVersion.$id.description", array("class" => "page-title ui-corner-all tabs_input"));
 										echo $this->Form->input("ProductVersion.$id.price", array("class" => "page-title ui-corner-all tabs_input"));

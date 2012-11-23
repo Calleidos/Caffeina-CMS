@@ -15,10 +15,7 @@
 		</script><?php
 	$this->end(); 
 	?>
-<!-- start content-outer ........................................................................................................................START -->
-<div id="content-outer">
-<!-- start content -->
-<div id="content">
+
 
 	<!--  start page-heading -->
 	<div id="page-heading">
@@ -121,10 +118,5 @@
 	</table>
 	<div class="clear">&nbsp;</div>
 
-</div>
-<!--  end content -->
-<div class="clear">&nbsp;</div>
-</div>
-<!--  end content-outer........................................................END -->
 
 <div class="clear">&nbsp;</div>

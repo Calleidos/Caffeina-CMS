@@ -31,6 +31,7 @@ class ImagesController extends AppController {
 	}
 	
 	public function admin_close($id) {
+		$this->layout="iframe";
 		$this->set("id", $id);
 	}
 	

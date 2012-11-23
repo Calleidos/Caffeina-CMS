@@ -7,7 +7,9 @@
 				data:{id:'<?php echo $id ?>'},
 				dataType:"html", 
 				success:function (data) {
-					alert(data);
+
+					// JACKKKKKKK DIOBOIA
+					
 					$('.category-box', parent.document).html(data);
 					parent.createIcons();
 					parent.fancyImages();
