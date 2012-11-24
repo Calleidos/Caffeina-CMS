@@ -64,10 +64,10 @@ class Document extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Product' => array(
-			'className' => 'Product',
+		'Post' => array(
+			'className' => 'Post',
 			'foreignKey' => 'foreign_id',
-			'conditions' => 'Document.foreign_model="Product"',
+			'conditions' => 'Document.foreign_model="Post"',
 			'fields' => '',
 			'order' => ''
 		)

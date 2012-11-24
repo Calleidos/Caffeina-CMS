@@ -30,7 +30,14 @@ class Category extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
+		),
+		'Posttype' => array(
+				'className' => 'Posttype',
+				'foreignKey' => 'posttype_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+		),
 	);
 
 /**

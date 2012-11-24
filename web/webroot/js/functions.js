@@ -243,14 +243,14 @@ function fancyImages() {
 
 function modifySlug(id) {
 	newButton='<button id="save-slug-'+id+'" onclick="saveSlug('+id+'); return false;" class="act btn_green" style="float: none;left: 260px;position: relative;top: -45px;">Save Slug</button>';
-	$("#ProductVersion"+id+"Slug").prop('disabled', false);
+	$("#PostVersion"+id+"Slug").prop('disabled', false);
 	$("#modify-slug-"+id).replaceWith(newButton);
 	createIcons();
 }
 
 function saveSlug(id) {
 	newButton='<button id="modify-slug-'+id+'" onclick="modifySlug('+id+'); return false;" class="act btn_yellow" style="float: none;left: 260px;position: relative;top: -45px;">Modify Slug</button>';
-	$("#ProductVersion"+id+"Slug").prop('disabled', true);
+	$("#PostVersion"+id+"Slug").prop('disabled', true);
 	$("#save-slug-"+id).replaceWith(newButton);
 	createIcons();
 }

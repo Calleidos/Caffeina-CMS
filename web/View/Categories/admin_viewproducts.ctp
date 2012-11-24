@@ -40,9 +40,9 @@
 			<!--  start table-content  -->
 			<div id="table-content">		
 		 
-				<!--  start product-table ..................................................................................... -->
+				<!--  start post-table ..................................................................................... -->
 				<form id="mainform" action="">
-				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="post-table">
 				<h2><?php echo __('Prodotti');?></h2>
 					
 					<tr>
@@ -52,36 +52,36 @@
 						<th class="table-header-repeat line-left"><span><?php echo __('Ordine');?></span></th>
 						<th class="table-header-repeat line-left" class="actions"><span><?php echo __('Actions');?></span></th>
 					</tr><?php $temp = false;
-					foreach ($products as $product): ?>
+					foreach ($posts as $post): ?>
 					<tr <?php  if($temp == true){echo 'class="alternate-row"'; $temp = false;}else{$temp = true;} ?> >
 						<td><input type="checkbox" /></td>
-						<td><?php echo h($product['ProductVersion'][$mainLanguage]['name']); ?>&nbsp;</td>
-						<td><?php echo h($product['Product']['code']); ?></td>
+						<td><?php echo h($post['PostVersion'][$mainLanguage]['name']); ?>&nbsp;</td>
+						<td><?php echo h($post['Post']['code']); ?></td>
 						
-						<td><?php /*echo h($product['Product']['order']); */?>
+						<td><?php /*echo h($post['Post']['order']); */?>
 							<ul class="ordering"><?php 
-								if ($product['Product']['order']>1) {?>
-						    		<li><button class="act up_order" onclick="order('products', <?php echo $category["Category"]["id"]; ?>, <?php echo $product['Product']['id'] ?>, -1); return false;" class=''><?php echo __('Sposta su');?></button></li><?php
+								if ($post['Post']['order']>1) {?>
+						    		<li><button class="act up_order" onclick="order('posts', <?php echo $category["Category"]["id"]; ?>, <?php echo $post['Post']['id'] ?>, -1); return false;" class=''><?php echo __('Sposta su');?></button></li><?php
 						    	}
-						    	if ($product['Product']['order']<$totalProducts) {?>
-						    		<li><button class="act down_order" onclick="order('products', <?php echo $category["Category"]["id"]; ?>, <?php echo $product['Product']['id'] ?>, +1); return false;" class=''><?php echo __('Sposta giu');?></button></li><?php
+						    	if ($post['Post']['order']<$totalPosts) {?>
+						    		<li><button class="act down_order" onclick="order('posts', <?php echo $category["Category"]["id"]; ?>, <?php echo $post['Post']['id'] ?>, +1); return false;" class=''><?php echo __('Sposta giu');?></button></li><?php
 						    	}?>
 					    	</ul>
 						
 						</td>
 						<td class="options-width act">
 							<span class="btn_yellow">
-								<?php echo $this->Html->link(__('Edit'), array('controller' => 'products', 'action' => 'edit', $product['Product']['id'])); ?>
+								<?php echo $this->Html->link(__('Edit'), array('controller' => 'posts', 'action' => 'edit', $post['Post']['id'])); ?>
 							</span>
 							<span class="btn_red">
-								<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'products', 'action' => 'delete', $product['Product']['id']), null, __('Are you sure you want to delete # %s?', $product['Product']['id'])); ?>
+								<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'posts', 'action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id'])); ?>
 							</span>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 				</tr>
 				</table>
-				<!--  end product-table................................... --> 
+				<!--  end post-table................................... --> 
 				</form>
 			</div>
 			<!--  end content-table  -->

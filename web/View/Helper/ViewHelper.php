@@ -20,7 +20,7 @@ class ViewHelper extends AppHelper {
 			<div class="outer" style="display: block;">
 				<div class="inner">
 					<div><?php 
-						if (!empty($array['Product'])) {?>
+						if (!empty($array['Post'])) {?>
 							<table cellpadding="0" cellspacing="0">
 								<tr>
 									<th>&nbsp;</th>
@@ -31,23 +31,23 @@ class ViewHelper extends AppHelper {
 										<th><?php echo $this->Html->image($language['Language']['flag']); ?>&nbsp;</th><?php
 									}?>
 								</tr><?php 
-							foreach ($array['Product'] as $product) {?>
+							foreach ($array['Post'] as $post) {?>
 								<tr>
 									<td>
-										<button onclick="if(confirm('<?php echo __("Are you sure you want to delete this file?")?>')) {deleteArticle(<?php echo $product['id'] ?>, 'document');} return false;" class="cancel-file"><?php echo __("Delete"); ?></button>
-										<?php echo $this->Html->link("", array("controller" => "products", "action" => "edit"))?><a href="/admin/products/edit/<?php echo $product['id'] ?>"><button onclick="" class="edit-file"><?php echo __("Edit") ?></button></a>
+										<button onclick="if(confirm('<?php echo __("Are you sure you want to delete this file?")?>')) {deleteArticle(<?php echo $post['id'] ?>, 'document');} return false;" class="cancel-file"><?php echo __("Delete"); ?></button>
+										<?php echo $this->Html->link("", array("controller" => "posts", "action" => "edit"))?><a href="/admin/posts/edit/<?php echo $post['id'] ?>"><button onclick="" class="edit-file"><?php echo __("Edit") ?></button></a>
 									</td>
 									<td>
-										<?php echo $pvs[$product['id']][2]['ProductVersion']['name'] ?></p>
+										<?php echo $pvs[$post['id']][2]['PostVersion']['name'] ?></p>
 									</td>
 									<td>
-										<?php echo $product['code'] ?></p>
+										<?php echo $post['code'] ?></p>
 									</td>
 									<td>
-										<?php echo $product['order'] ?></p>
+										<?php echo $post['order'] ?></p>
 									</td><?php
 									foreach ($languages as $language) {?>
-										<td><input class="ProductVersionLanguage" id="ProductVersion-<?php echo $pvs[$product['id']][$language['Language']['id']]['ProductVersion']['id']?>" type="checkbox" <?php if ($pvs[$product['id']][$language['Language']['id']]['ProductVersion']['active']) echo "checked='checked'"; ?> /></td><?php
+										<td><input class="PostVersionLanguage" id="PostVersion-<?php echo $pvs[$post['id']][$language['Language']['id']]['PostVersion']['id']?>" type="checkbox" <?php if ($pvs[$post['id']][$language['Language']['id']]['PostVersion']['active']) echo "checked='checked'"; ?> /></td><?php
 									}?>
 									
 								</tr><?php

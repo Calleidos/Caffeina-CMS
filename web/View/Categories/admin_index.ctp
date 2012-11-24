@@ -40,9 +40,9 @@
 			<!--  start table-content  -->
 			<div id="table-content">		
 		 
-				<!--  start product-table ..................................................................................... -->
+				<!--  start post-table ..................................................................................... -->
 				<form id="mainform" action="">
-				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="post-table">
 				<h2><?php echo __('Prodotti');?></h2>
 					
 					<tr>
@@ -69,7 +69,7 @@
 				<?php endforeach; ?>
 				</tr>
 				</table>
-				<!--  end product-table................................... --> 
+				<!--  end post-table................................... --> 
 				</form>
 			</div>
 			<!--  end content-table  -->

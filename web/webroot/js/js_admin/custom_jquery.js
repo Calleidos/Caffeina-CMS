@@ -87,7 +87,7 @@ $(document).bind("click", function (e) {
 // 5 - TABLE ROW BACKGROUND COLOR CHANGES ON ROLLOVER -----------------------------------------------------------------------
 /*
 $(document).ready(function () {
-    $('#product-table	tr').hover(function () {
+    $('#post-table	tr').hover(function () {
         $(this).addClass('activity-blue');
     },
     function () {

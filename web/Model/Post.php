@@ -1,11 +1,11 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Product Model
+ * Post Model
  *
- * @property ProductVersion $ProductVersion
+ * @property PostVersion $PostVersion
  */
-class Product extends AppModel {
+class Post extends AppModel {
 /**
  * Display field
  *
@@ -15,15 +15,26 @@ class Product extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
+	public $belongsTo = array(
+		'Posttype' => array(
+				'className' => 'Posttype',
+				'foreignKey' => 'posttype_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+		),
+	);
+	
+	
 /**
  * hasMany associations
  *
  * @var array
  */
 	public $hasMany = array(
-		'ProductVersion' => array(
-			'className' => 'ProductVersion',
-			'foreignKey' => 'product_id',
+		'PostVersion' => array(
+			'className' => 'PostVersion',
+			'foreignKey' => 'post_id',
 			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
@@ -39,7 +50,7 @@ class Product extends AppModel {
 			'className' => 'Image',
 			'foreignKey' => 'foreign_id',
 			'dependent' => true,
-			'conditions' => 'Image.foreign_model="Product"',
+			'conditions' => 'Image.foreign_model="Post"',
 			'fields' => '',
 			'order' => 'Image.order',
 			'limit' => '',
@@ -52,7 +63,7 @@ class Product extends AppModel {
 			'className' => 'Document',
 			'foreignKey' => 'foreign_id',
 			'dependent' => true,
-			'conditions' => 'Document.foreign_model="Product"',
+			'conditions' => 'Document.foreign_model="Post"',
 			'fields' => '',
 			'order' => 'Document.order',
 			'limit' => '',
@@ -63,7 +74,7 @@ class Product extends AppModel {
 		),
 		'CategoryOrder' => array(
 				'className' => 'CategoryOrder',
-				'foreignKey' => 'product_id',
+				'foreignKey' => 'post_id',
 				'dependent' => true,
 				'conditions' => '',
 				'fields' => '',

@@ -1,5 +1,5 @@
-<div class="products">
-	<h2><?php echo __('Products');?></h2>
+<div class="posts">
+	<h2><?php echo __('Posts');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
@@ -8,15 +8,15 @@
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
-	foreach ($products as $product): ?>
+	foreach ($posts as $post): ?>
 	<tr>
-		<td><?php echo h($product['Product']['id']); ?>&nbsp;</td>
-		<td><?php echo h($product['Product']['code']); ?>&nbsp;</td>
-		<td><?php echo h($product['Product']['order']); ?>&nbsp;</td>
+		<td><?php echo h($post['Post']['id']); ?>&nbsp;</td>
+		<td><?php echo h($post['Post']['code']); ?>&nbsp;</td>
+		<td><?php echo h($post['Post']['order']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $product['Product']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $product['Product']['id']), null, __('Are you sure you want to delete # %s?', $product['Product']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $post['Post']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $post['Post']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

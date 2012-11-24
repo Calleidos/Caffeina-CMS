@@ -14,7 +14,7 @@
 	<ul>
 
 		<li><?php echo $this->Html->link(__('List Languages'), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('List Product Versions'), array('controller' => 'product_versions', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Product Version'), array('controller' => 'product_versions', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Post Versions'), array('controller' => 'post_versions', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Post Version'), array('controller' => 'post_versions', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

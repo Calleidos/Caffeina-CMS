@@ -43,9 +43,9 @@
 				
 		
 		 
-				<!--  start product-table ..................................................................................... -->
+				<!--  start post-table ..................................................................................... -->
 				<form id="mainform" action="">
-				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="post-table">
 				<h2><?php echo __('Prodotti');?></h2>
 					
 					<tr>
@@ -55,30 +55,30 @@
 						<th class="table-header-repeat line-left"><span><?php echo __('Categories');?></span></th>
 						<th class="table-header-repeat line-left" class="actions"><span><?php echo __('Actions');?></span></th>
 					</tr><?php $temp = false;
-					foreach ($products as $product): ?>
+					foreach ($posts as $post): ?>
 					<tr <?php  if($temp == true){echo 'class="alternate-row"'; $temp = false;}else{$temp = true;} ?> >
 						<td><input type="checkbox" /></td>
-						<td><?php echo $this->Html->link(__(h($product['ProductVersion'][$mainLanguage]['name'])), array('action' => 'edit', $product['Product']['id']), array('class' => 'cat_link')); ?>&nbsp;</td>
-						<td><?php echo h($product['Product']['code']); ?></td>
+						<td><?php echo $this->Html->link(__(h($post['PostVersion'][$mainLanguage]['name'])), array('action' => 'edit', $post['Post']['id']), array('class' => 'cat_link')); ?>&nbsp;</td>
+						<td><?php echo h($post['Post']['code']); ?></td>
 						<td><?php 
-							foreach ($product['Category'] as $cat) {
-								echo $this->Html->link($cat['name'], array('controller' => 'categories', 'action' => 'viewproducts', $cat['id']), array('class' => 'cat_link')).",&nbsp;";
+							foreach ($post['Category'] as $cat) {
+								echo $this->Html->link($cat['name'], array('controller' => 'categories', 'action' => 'viewposts', $cat['id']), array('class' => 'cat_link')).",&nbsp;";
 							}?>&nbsp;
 						</td>
 						
 						<td class="options-width act">
 							<span class="btn_yellow">
-								<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>
+								<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $post['Post']['id'])); ?>
 							</span>
 							<span class="btn_red">
-								<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $product['Product']['id']), null, __('Are you sure you want to delete # %s?', $product['Product']['id'])); ?>
+								<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id'])); ?>
 							</span>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 				</tr>
 				</table>
-				<!--  end product-table................................... --> 
+				<!--  end post-table................................... --> 
 				</form>
 			</div>
 			<!--  end content-table  -->

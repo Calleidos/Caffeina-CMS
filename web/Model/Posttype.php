@@ -1,11 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Language Model
+ * Posttype Model
  *
- * @property PostVersion $PostVersion
+ * @property Category $Category
+ * @property Post $Post
  */
-class Language extends AppModel {
+class Posttype extends AppModel {
 /**
  * Display field
  *
@@ -21,9 +22,22 @@ class Language extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'PostVersion' => array(
-			'className' => 'PostVersion',
-			'foreignKey' => 'language_id',
+		'Category' => array(
+			'className' => 'Category',
+			'foreignKey' => 'posttype_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Post' => array(
+			'className' => 'Post',
+			'foreignKey' => 'posttype_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',

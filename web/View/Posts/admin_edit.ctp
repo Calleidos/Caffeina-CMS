@@ -95,10 +95,10 @@
 			
 			
 			
-<?php echo $this->Form->create('Product');?>
+<?php echo $this->Form->create('Post');?>
 	
 	
-			<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table" >
+			<table border="0" width="100%" cellpadding="0" cellspacing="0" id="post-table" >
 				
 					
 				<tr>
@@ -113,7 +113,7 @@
 				<tr>
 					<td colspan="2" class="span_container">
 					<?php
-						if (isset($this->data['Product']['id']))
+						if (isset($this->data['Post']['id']))
 							echo $this->Form->input('id');
 						echo $this->Form->input('code', array('class' => 'page-title ui-corner-all tabs_input'));
 					?>
@@ -128,26 +128,26 @@
 							<div id="tabs-<?php echo $id ?>" style="margin-top:20px;">
 								<div class="tabs">
 									<ul>
-										<li><a href="#tab-details-<?php echo $language ?>"><?php echo __('Product Details'); ?></a></li>
+										<li><a href="#tab-details-<?php echo $language ?>"><?php echo __('Post Details'); ?></a></li>
 										<li><a href="#tab-seo-<?php echo $language ?>"><?php echo __('SEO'); ?></a></li>
 									</ul>
 									<div id="tab-details-<?php echo $language ?>"><?php
-										if (isset($this->request->data['ProductVersion'][$id]["id"])) {
-											echo $this->Form->input("ProductVersion.$id.id");
+										if (isset($this->request->data['PostVersion'][$id]["id"])) {
+											echo $this->Form->input("PostVersion.$id.id");
 										}
-										echo $this->Form->input("ProductVersion.$id.name", array("class" => "page-title ui-corner-all tabs_input"));
-										echo $this->Form->input("ProductVersion.$id.slug", array("class" => "page-title ui-corner-all tabs_input", "disabled" => true));?>
+										echo $this->Form->input("PostVersion.$id.name", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("PostVersion.$id.slug", array("class" => "page-title ui-corner-all tabs_input", "disabled" => true));?>
 										<button class="act btn_yellow" style="float: none;left: 260px;position: relative;top: -45px;" id="modify-slug-<?php echo $id ?>" onclick="modifySlug(<?php echo $id ?>); return false;"><?php echo _("Modify Slug"); ?></button>
 										<?php 
-										echo $this->Form->input("ProductVersion.$id.active", array("options" => array(0 => __('Disabled'), 1=> __('Hidden'), 2=>__('Enabled') ), "class" => "styledselect"));
-										echo $this->Form->input("ProductVersion.$id.description", array("class" => "page-title ui-corner-all tabs_input"));
-										echo $this->Form->input("ProductVersion.$id.price", array("class" => "page-title ui-corner-all tabs_input"));
-										echo $this->Form->input("ProductVersion.$id.language_id", array("value" => $id, 'type' => 'hidden'));?>
+										echo $this->Form->input("PostVersion.$id.active", array("options" => array(0 => __('Disabled'), 1=> __('Hidden'), 2=>__('Enabled') ), "class" => "styledselect"));
+										echo $this->Form->input("PostVersion.$id.description", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("PostVersion.$id.price", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("PostVersion.$id.language_id", array("value" => $id, 'type' => 'hidden'));?>
 									</div>
 									<div id="tab-seo-<?php echo $language ?>"><?php
-										echo $this->Form->input("ProductVersion.$id.seo_title", array("class" => "page-title ui-corner-all tabs_input"));
-										echo $this->Form->input("ProductVersion.$id.seo_keywords", array("class" => "page-title ui-corner-all tabs_input"));
-										echo $this->Form->input("ProductVersion.$id.seo_description", array("class" => "page-title ui-corner-all tabs_input"));?>
+										echo $this->Form->input("PostVersion.$id.seo_title", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("PostVersion.$id.seo_keywords", array("class" => "page-title ui-corner-all tabs_input"));
+										echo $this->Form->input("PostVersion.$id.seo_description", array("class" => "page-title ui-corner-all tabs_input"));?>
 									</div>
 								</div>
 							</div><?php
@@ -160,7 +160,7 @@
 							$selectedCategories=array();
 						echo $this->Form->input('CategoryOrder.category_id', array('type' => 'select', 'multiple'=>"checkbox", 'div' =>"", 'label' => false, 'selected' => $selectedCategories));?>
 					
-						<a class="fancy-modal" href="/admin/categories/addAjax/Product">
+						<a class="fancy-modal" href="/admin/categories/addAjax/Post">
 							
 							<button onclick="return false;" class="add-button act btn_green" style="height:25px;"><?php echo __("Add Category"); ?></button>
 							
@@ -175,10 +175,10 @@
 								<li><a href="#tab-documents"><?php echo __('Documenti prodotti'); ?></a></li>
 							</ul><?php 
 							
-							$details=array('type' => 'image', 'model' => 'Product');
+							$details=array('type' => 'image', 'model' => 'Post');
 							$this->set('details',$details);
 							echo $this->element('/admin/file_list');
-							$details=array('type' => 'document', 'model' => 'Product');
+							$details=array('type' => 'document', 'model' => 'Post');
 							$this->set('details',$details);
 							echo $this->element('/admin/file_list');?>
 							

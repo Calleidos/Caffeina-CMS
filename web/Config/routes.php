@@ -47,7 +47,7 @@
 	
 	Router::connect('/:language/catalogo/:categoria/:prodotto', 
 		array(
-			'controller' => 'productVersions', 
+			'controller' => 'postVersions', 
 			'action' => 'view',
 		),
 		array(

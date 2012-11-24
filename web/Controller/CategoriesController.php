@@ -21,7 +21,7 @@ class CategoriesController extends AppController {
         $this->set("categories" , $data);
     }
     
-    public function admin_viewproducts($id=null) {
+    public function admin_viewposts($id=null) {
     	$this->Category->id = $id;
     
     	if (!$this->Category->exists()) {
@@ -32,31 +32,31 @@ class CategoriesController extends AppController {
     	$this->set('category', $category);
     	$ids=array();
     	
-    	$categoryOrders=$this->Category->CategoryOrder->find('list', array('conditions' => array('category_id' => $id ), 'order' => array('order'), 'fields' => array('product_id', 'order')));
-    	$products=$this->Category->CategoryOrder->Product->find('all', array('conditions' => array('id' => array_keys($categoryOrders))));
+    	$categoryOrders=$this->Category->CategoryOrder->find('list', array('conditions' => array('category_id' => $id ), 'order' => array('order'), 'fields' => array('post_id', 'order')));
+    	$posts=$this->Category->CategoryOrder->Post->find('all', array('conditions' => array('id' => array_keys($categoryOrders))));
     	$prod=array();
     	
-    	foreach($products as $product) {
-    		$prod[$categoryOrders[$product['Product']['id']]]=$product;
-    		$prod[$categoryOrders[$product['Product']['id']]]['Product']['order']=$categoryOrders[$product['Product']['id']];
+    	foreach($posts as $post) {
+    		$prod[$categoryOrders[$post['Post']['id']]]=$post;
+    		$prod[$categoryOrders[$post['Post']['id']]]['Post']['order']=$categoryOrders[$post['Post']['id']];
     	}
     	
-    	$products=$prod;
+    	$posts=$prod;
     	
-    	ksort($products);
+    	ksort($posts);
     	
-    	pr($products);
+    	pr($posts);
     	
-    	foreach ($products as $key=>$product) {
+    	foreach ($posts as $key=>$post) {
     		$pvs=array();
-    		foreach ($product['ProductVersion'] as $pv)
+    		foreach ($post['PostVersion'] as $pv)
     			$pvs[$pv['language_id']]=$pv;
-    		$products[$key]['ProductVersion']=$pvs;
+    		$posts[$key]['PostVersion']=$pvs;
     	}
     	
-    	$this->set('products', $products);
+    	$this->set('posts', $posts);
     
-    	$this->set('totalProducts', count($products));
+    	$this->set('totalPosts', count($posts));
     
     
     }
@@ -69,13 +69,13 @@ class CategoriesController extends AppController {
 			throw new NotFoundException(__('Invalid category'));
 		}
 		
-		$products=array();
+		$posts=array();
 		
-		foreach($category['Product'] as $product) {
-			$products[]=$product['id'];
+		foreach($category['Post'] as $post) {
+			$posts[]=$post['id'];
 		}
 		$this->set('category', $permalink);
-		$this->set('products', $this->Category->Product->ProductVersion->find('all', array('conditions' => array('Language.iso' => $language, 'ProductVersion.product_id' => $products, 'ProductVersion.active' => 2), 'order' => array('Product.order'))));
+		$this->set('posts', $this->Category->Post->PostVersion->find('all', array('conditions' => array('Language.iso' => $language, 'PostVersion.post_id' => $posts, 'PostVersion.active' => 2), 'order' => array('Post.order'))));
 		
 	}
     
@@ -224,13 +224,13 @@ class CategoriesController extends AppController {
 		$id = $this->data['id'];
 		$order = $this->data['order'];
 		$category = $this->data['category'];
-		$product=$this->Category->CategoryOrder->find('first', array('conditions' => array('product_id'=>$id, 'category_id' => $category)));
-		$changeId=$this->Category->CategoryOrder->find('first', array('conditions' => array('order'=>$product['CategoryOrder']['order']+$order, 'category_id' => $category)));
-		$orderProduct=$product['CategoryOrder']['order'];
+		$post=$this->Category->CategoryOrder->find('first', array('conditions' => array('post_id'=>$id, 'category_id' => $category)));
+		$changeId=$this->Category->CategoryOrder->find('first', array('conditions' => array('order'=>$post['CategoryOrder']['order']+$order, 'category_id' => $category)));
+		$orderPost=$post['CategoryOrder']['order'];
 		$orderChangeId=$changeId['CategoryOrder']['order'];
-		$product['CategoryOrder']['order']=$orderChangeId;
-		$changeId['CategoryOrder']['order']=$orderProduct;
-		$this->Category->CategoryOrder->save($product);
+		$post['CategoryOrder']['order']=$orderChangeId;
+		$changeId['CategoryOrder']['order']=$orderPost;
+		$this->Category->CategoryOrder->save($post);
 		$this->Category->CategoryOrder->save($changeId);
 		$this->autoRender=false;
 	}

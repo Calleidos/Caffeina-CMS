@@ -66,10 +66,10 @@ class Image extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Product' => array(
-			'className' => 'Product',
+		'Post' => array(
+			'className' => 'Post',
 			'foreignKey' => 'foreign_id',
-			'conditions' => 'Image.foreign_model="Product"',
+			'conditions' => 'Image.foreign_model="Post"',
 			'fields' => '',
 			'order' => ''
 		)

@@ -5,8 +5,8 @@
 	$this->append('script');?>
 	<script type="text/javascript">		
 		jQuery(document).ready(function($){
-			$(".ProductVersionLanguage").click(function(){
-				id=$(this).attr("id").replace("ProductVersion-", "");;
+			$(".PostVersionLanguage").click(function(){
+				id=$(this).attr("id").replace("PostVersion-", "");;
 				$.ajax({
 					async:true, 
 					data:{
@@ -17,7 +17,7 @@
 					success:function (data) {
 					}, 
 					type:"post",
-					url:"/admin/productVersions/ajaxActivate"
+					url:"/admin/postVersions/ajaxActivate"
 				});
 			});
 
@@ -50,13 +50,13 @@
 <ul class="accordion" id="acc1"><?php
 
 	foreach ($nestedCategories as $nC)
-		$this->View->stepIn($nC, $productVersions, $languages);
+		$this->View->stepIn($nC, $postVersions, $languages);
 	
 	?>
 </ul>
 <?php  /*?>
-<div class="products">
-	<h2><?php echo __('Products');?></h2>
+<div class="posts">
+	<h2><?php echo __('Posts');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 		<th><?php echo $this->Paginator->sort('code');?></th>
@@ -67,16 +67,16 @@
 		<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
-	foreach ($products as $product): ?>
+	foreach ($posts as $post): ?>
 	<tr>
-		<td><?php echo h($product['Product']['code']); ?>&nbsp;</td>
-		<td><?php echo h($product['Product']['order']); ?>&nbsp;</td><?php 
+		<td><?php echo h($post['Post']['code']); ?>&nbsp;</td>
+		<td><?php echo h($post['Post']['order']); ?>&nbsp;</td><?php 
 		foreach ($languages as $language) {?>
-			<td><input class="ProductVersionLanguage" id="ProductVersion-<?php echo $productVersions[$product['Product']['id']][$language['Language']['id']]['ProductVersion']['id']?>" type="checkbox" <?php if ($productVersions[$product['Product']['id']][$language['Language']['id']]['ProductVersion']['active']) echo "checked='checked'"; ?> /></td><?php
+			<td><input class="PostVersionLanguage" id="PostVersion-<?php echo $postVersions[$post['Post']['id']][$language['Language']['id']]['PostVersion']['id']?>" type="checkbox" <?php if ($postVersions[$post['Post']['id']][$language['Language']['id']]['PostVersion']['active']) echo "checked='checked'"; ?> /></td><?php
 		}?>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $product['Product']['id']), null, __('Are you sure you want to delete # %s?', $product['Product']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $post['Post']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -84,8 +84,8 @@
 <?php /*?><div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Product'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Product Versions'), array('controller' => 'product_versions', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Product Version'), array('controller' => 'product_versions', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Post'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Post Versions'), array('controller' => 'post_versions', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Post Version'), array('controller' => 'post_versions', 'action' => 'add')); ?> </li>
 	</ul>
 </div>*/?>

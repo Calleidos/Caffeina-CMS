@@ -1,12 +1,12 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * ProductVersion Model
+ * PostVersion Model
  *
  * @property Language $Language
- * @property Product $Product
+ * @property Post $Post
  */
-class ProductVersion extends AppModel {
+class PostVersion extends AppModel {
 /**
  * Display field
  *
@@ -37,9 +37,9 @@ class ProductVersion extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Product' => array(
-			'className' => 'Product',
-			'foreignKey' => 'product_id',
+		'Post' => array(
+			'className' => 'Post',
+			'foreignKey' => 'post_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

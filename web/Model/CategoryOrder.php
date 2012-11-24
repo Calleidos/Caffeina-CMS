@@ -24,9 +24,9 @@ class CategoryOrder extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Product' => array(
-				'className' => 'Product',
-				'foreignKey' => 'product_id',
+		'Post' => array(
+				'className' => 'Post',
+				'foreignKey' => 'post_id',
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
