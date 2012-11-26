@@ -33,46 +33,29 @@ App::uses('Controller', 'Controller');
  */
 
 class AppController extends Controller {
-	public function generateHabtmJoin ($modelName, $joinType = 'INNER') {
-		// If the relation does not exist, return an empty array.
-		if (!isset($this->hasAndBelongsToMany[$joinModel])) {
-			return array();
-		}
-	 
-		// Init joins, and get HABTM relation.
-		$joins = array();
-		$assoc = $this->hasAndBelongsToMany[$joinModel];
-	 
-		// Add the join table.
-		$bind = "{$assoc['with']}.{$assoc['foreignKey']} = {$this->alias}.{$this->primaryKey}";
-		$joins[] = array(
-			'table' => $assoc['joinTable'],
-			'alias' => $assoc['with'],
-			'type' => $joinType,
-			'foreignKey' => false,
-			'conditions' => array($bind),
-		);
-	 
-		// Add the next table.
-		$bind = "{$joinModel}.{$this->{$joinModel}->primaryKey} = {$assoc['with']}.{$assoc['associationForeignKey']}";
-		$joins[] = array(
-			'table' => $this->{$joinModel}->table,
-			'alias' => $joinModel,
-			'type' => $joinType,
-			'foreignKey' => false,
-			'conditions' => array($bind),
-		);
-	 
-		return $joins;
-	}
+	
+	
+	public $components = array(
+			'Session',
+			'Auth' => array(
+					'loginRedirect' => array('controller' => 'posts', 'action' => 'index', 1, 'prefix' => 'admin'),
+					'logoutRedirect' => array('controller' => 'users', 'action' => 'login', 'prefix' => 'admin')
+			)
+	);
 	
 	function beforeFilter() {
 		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') {
-			$this->layout = 'admin';
+			//$this->layout = 'admin';
 		}
-		
-		
+		if(isset($this->Auth)) {
+		    if(isset($this->params['admin']) && $this->params['admin']) {
+		      $this->Auth->allow('admin_login'); // allow backend login only
+		    } else {
+		      $this->Auth->allow(); // allow everything in frontend
+		    }
+		}
 	}
+	
 	function _flash($message,$type='message') {
 		$messages = (array)$this->Session->read('Message.multiFlash');
 		$messages[] = array(
@@ -83,4 +66,23 @@ class AppController extends Controller {
 		);
 		$this->Session->write('Message.multiFlash', $messages);
 	}
+	
+	public function beforeRender() {
+		$this->_configureErrorLayout();
+	}
+	
+	public function _configureErrorLayout() {
+		if ($this->name == 'CakeError') {
+			if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') {
+				if($this->Auth->User('id'))
+					$this->layout="admin";
+				else  
+					$this->layout = false;
+			} else {
+				$this->layout = 'default';
+			}
+		}
+	}
+	
+	
 }

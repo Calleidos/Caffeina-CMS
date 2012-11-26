@@ -28,6 +28,7 @@ class PostVersionsController extends AppController {
 		$pv=$this->PostVersion->find('first', array('conditions'=> array('slug' => $slug, 'Language.iso' => $language)));
 		$this->PostVersion->id = $pv['PostVersion']['id'];
 		pr($pv);
+		pr($this->PostVersion->id);
 		if (!$this->PostVersion->exists() || !($pv['PostVersion']['active'])) {
 			throw new NotFoundException(__('Invalid post version'));
 		}

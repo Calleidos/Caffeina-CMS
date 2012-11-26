@@ -21,7 +21,6 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php /*echo __('CakePHP: the rapid development php framework:'); */?>
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
@@ -32,17 +31,12 @@
 		
 		echo $this->Html->meta('icon');
 
-		/*echo $this->Html->css('cake.generic');*/
 		echo $this->Html->css('main');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('scripts');
 		echo $this->fetch('script');
-		
-	
-
-//echo $this->Html->script('js_admin/jquery-1.4.1.min');
 
  
  
@@ -255,7 +249,7 @@ $(document).pngFix( );
 	
 	<!--  start top-search -->
 	<div id="top-search">
-		<table border="0" cellpadding="0" cellspacing="0">
+		<table border="0" cellpadding="0" cellspacing="0" style="visibility:hidden">
 		<tr>
 		<td><input type="text" value="Search" onblur="if (this.value=='') { this.value='Search'; }" onfocus="if (this.value=='Search') { this.value=''; }" class="top-search-inp" /></td>
 		<td>
@@ -295,15 +289,17 @@ $(document).pngFix( );
 			<div class="nav-divider">&nbsp;</div>
 			<div class="showhide-account"><?php echo $this->Html->image("admin/shared/nav/nav_myaccount.gif", array("alt" => "", "height" => "14px", "width" => "93px"));?></div>
 			<div class="nav-divider">&nbsp;</div>
-			<a href="" id="logout"><?php echo $this->Html->image("admin/shared/nav/nav_logout.gif", array("alt" => "", "height" => "14px", "width" => "64px"));?></a>
+			<?php echo $this->Html->link($this->Html->image("admin/shared/nav/nav_logout.gif", array("alt" => "", "height" => "14px", "width" => "64px")), array('controller' => 'users', 'action' => 'logout', 'prefix' => 'admin'), array('id' => 'logout', 'escape' => false))?>
+			
 			<div class="clear">&nbsp;</div>
 		
 			<!--  start account-content -->	
 			<div class="account-content">
 			<div class="account-drop-inner">
 				<a href="" id="acc-settings"><?php echo __('Impostazioni'); ?></a>
+				<?php /* ?>
 				<div class="clear">&nbsp;</div>
-				<div class="acc-line">&nbsp;</div>
+								<div class="acc-line">&nbsp;</div>
 				<a href="" id="acc-details"><?php echo __('Dati personali'); ?></a>
 				<div class="clear">&nbsp;</div>
 				<div class="acc-line">&nbsp;</div>
@@ -313,7 +309,8 @@ $(document).pngFix( );
 				<a href="" id="acc-inbox"><?php echo __('Messaggi'); ?></a>
 				<div class="clear">&nbsp;</div>
 				<div class="acc-line">&nbsp;</div>
-				<a href="" id="acc-stats"><?php echo __('Statistiche'); ?></a> 
+				<a href="" id="acc-stats"><?php echo __('Statistiche'); ?></a>
+				<?php //*/ ?> 
 			</div>
 			</div>
 			<!--  end account-content -->
@@ -356,8 +353,6 @@ $(document).pngFix( );
 			<ul class="sub">
 				<li><?php echo $this->Html->link(__('Elenco utenti'), array('controller' => 'users', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
 				<li><?php echo $this->Html->link(__('Aggiungi utente'), array('controller' => 'users', 'action' => 'add', 'prefix'=>'admin'), array('class' => ''));?></li>
-				<li><?php echo $this->Html->link(__('Impostazioni utenti'), array('controller' => 'users', 'action' => 'settings', 'prefix'=>'admin'), array('class' => ''));?></li>
-			 
 			</ul>
 		</div>
 		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -435,7 +430,7 @@ $(document).pngFix( );
 	<!--  start footer-left -->
 	<div id="footer-left">
 	
-	Caffeina-CMS &copy; <?php echo __('Copyright'); ?>  Calleidos S.r.l.<span id="spanYear"></span> <a href="http://www.calleidos.it">www.calleidos.it</a>. <?php echo __('Tutti i diritti riservati'); ?>.</div>
+	Caffeina-CMS <?php echo __('Tutti i diritti riservati'); ?>.</div>
 	<!--  end footer-left -->
 	<div class="clear">&nbsp;</div>
 </div>
