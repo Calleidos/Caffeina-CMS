@@ -20,7 +20,11 @@ class PostsController extends AppController {
 			'Post.deleted' => 0
 		)
     );
-	
+
+	public function beforeRender(){
+		parent::beforeRender();
+	}
+		
 /**
  * index method
  *

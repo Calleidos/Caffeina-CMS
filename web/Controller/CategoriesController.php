@@ -222,9 +222,6 @@ class CategoriesController extends AppController {
 	
 	
 	public function admin_order() {
-		
-		pr($this->data);
-				
 		$id = $this->data['id'];
 		$order = $this->data['order'];
 		$category = $this->data['category'];
