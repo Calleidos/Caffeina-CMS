@@ -14,10 +14,17 @@ class CategoriesController extends AppController {
  *
  * @return void
  */
-	public function admin_index() {
-        $data = $this->Category->generateTreeList(null, null, null, '- ');
+	public function admin_index($posttype=null) {
+		$this->Category->Posttype->id = $posttype;
+		if (!$this->Category->Posttype->exists()) {
+			throw new NotFoundException(__('Invalid posttype'));
+		}
+		$this->Category->Posttype->recursive=-1;
+		$this->set("posttype", $this->Category->Posttype->find('first', array('conditions' => array('id'=>$posttype))));
+		
+        $data = $this->Category->generateTreeListPostType($posttype);
 
-        $this->set('totalCategories', $this->Category->find('count'));
+        $this->set('totalCategories', count($data));
         $this->set("categories" , $data);
     }
     
@@ -33,7 +40,7 @@ class CategoriesController extends AppController {
     	$ids=array();
     	
     	$categoryOrders=$this->Category->CategoryOrder->find('list', array('conditions' => array('category_id' => $id ), 'order' => array('order'), 'fields' => array('post_id', 'order')));
-    	$posts=$this->Category->CategoryOrder->Post->find('all', array('conditions' => array('id' => array_keys($categoryOrders))));
+    	$posts=$this->Category->CategoryOrder->Post->find('all', array('conditions' => array('Post.id' => array_keys($categoryOrders), 'Post.deleted' => 0)));
     	$prod=array();
     	
     	foreach($posts as $post) {
@@ -44,8 +51,6 @@ class CategoriesController extends AppController {
     	$posts=$prod;
     	
     	ksort($posts);
-    	
-    	pr($posts);
     	
     	foreach ($posts as $key=>$post) {
     		$pvs=array();
@@ -100,24 +105,24 @@ class CategoriesController extends AppController {
  *
  * @return void
  */
-	public function admin_add($model=null) {
+	public function admin_add($posttype=null) {
 		if ($this->request->is('post')) {
 			$this->Category->create();
 			if ($this->Category->save($this->request->data)) {
-				/*$this->Session->setFlash(__('The category has been saved'));*/
-
 				$this->_flash(__('The category has been saved.', true),'green');
-				
 				$this->redirect(array('action' => 'index'));
 			} else {
-				/*$this->Session->setFlash(__('The category could not be saved. Please, try again.'));*/
-			$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
+				$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
 			}
 		}
-		$parentCategories = $this->Category->generateTreeList(null, null, null, "- ");
+		
+		if (isset($this->request->data['Category']['posttype_id']))
+			$posttype=$this->request->data['Category']['posttype_id'];
+		
+		$parentCategories=$this->Category->generateTreeListPostType($posttype);
+		$parentCategories=array($this->Category->getPostTypeParent($posttype) => __("Nessun Genitore"))+$parentCategories;
 		$this->set(compact('parentCategories'));
-		if (isset($model))
-			$this->set("model", $model);
+		
 		$this->render('admin_edit');
 	}
 
@@ -126,36 +131,33 @@ class CategoriesController extends AppController {
  *
  * @return void
  */
-	public function admin_addAjax($model=null) {
+	public function admin_addAjax($posttype=null) {
 		if ($this->request->is('post')) {
 			$this->Category->create();
+			$this->request->data['Category']['posttype_id']=$posttype;
 			if ($this->Category->save($this->request->data)) {
-				/*$this->Session->setFlash(__('The category has been saved'));*/
-
-				$this->_flash(__('The category has been saved.', true),'green');
-				
-				$this->redirect(array('action' => 'admin_close', $this->Category->id));
+				$this->redirect(array('action' => 'admin_close', $this->request->data['Category']['posttype_id']));
 			} else {
-				/*$this->Session->setFlash(__('The category could not be saved. Please, try again.'));*/
-			$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
+				$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
 			}
 		}
-		$parentCategories = $this->Category->generateTreeList(null, null, null, "- ");
+		$parentCategories=$this->Category->generateTreeListPostType($posttype);
+		$parentCategories=array($this->Category->getPostTypeParent($posttype) => __("Nessun Genitore"))+$parentCategories;
 		$this->set(compact('parentCategories'));
-		if (isset($model))
-			$this->set("model", $model);
+		$this->layout = 'iframe';
 		$this->render('admin_edit');
+	}
+	
+	public function admin_close( $posttypeId) {
+		$this->set("posttypeId", $posttypeId);
 		$this->layout = 'iframe';
 	}
 	
-	public function admin_close($id) {
-		$this->set("id", $id);
-		$this->layout = 'iframe';
-	}
-	
-	public function admin_createSelect($model=null) {
-		$parentCategories = $this->Category->generateTreeList(array('foreign_model' => $model), null, null, "- ");
+	public function admin_createSelect() {
+		$posttype=$this->data['posttypeId'];
+		$parentCategories=$this->Category->generateTreeListPostType($posttype);
 		$this->set(compact('parentCategories'));
+		$this->set("posttype", $posttype);
 		$this->layout= "ajax";
 	}
 	
@@ -173,19 +175,17 @@ class CategoriesController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 
 			if ($this->Category->save($this->request->data)) {
-				/*$this->Session->setFlash(__('The category has been saved'));*/
-
 				$this->_flash(__('The category has been saved.', true),'green');
-				
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index', $this->request->data['Category']['posttype_id']));
 			} else {
-				/*$this->Session->setFlash(__('The category could not be saved. Please, try again.'));*/
 				$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
 			}
 		} else {
 			$this->request->data = $this->Category->read(null, $id);
 		}
-		$parentCategories = $this->Category->generateTreeList(null, null, null, "- ");
+		$posttype=$this->request->data['Category']['posttype_id'];
+		$parentCategories=$this->Category->generateTreeListPostType($posttype);
+		$parentCategories=array($this->Category->getPostTypeParent($posttype) => __("Nessun Genitore"))+$parentCategories;
 		$this->set(compact('parentCategories'));
 	}
 
@@ -203,12 +203,16 @@ class CategoriesController extends AppController {
 		if (!$this->Category->exists()) {
 			throw new NotFoundException(__('Invalid category'));
 		}
+		
+		$this->Category->recursive=-1;
+		$category=$this->Category->read(null, $id);
+		
 		if ($this->Category->delete()) {
 			/*$this->Session->setFlash(__('Category deleted'));*/
 
 			$this->_flash(__('Category deleted!', true),'green');
 			
-			$this->redirect(array('action' => 'index'));
+			$this->redirect(array('action' => 'index', $category['Category']['posttype_id']));
 		}
 		/*$this->Session->setFlash(__('Category was not deleted'));*/
 			$this->_flash(__('Category was not deleted.', true),'red');

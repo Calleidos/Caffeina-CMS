@@ -86,5 +86,15 @@ class Post extends AppModel {
 				'counterQuery' => ''
 		)
 	);
+	
+	public function selectedCategories($id=null) {
+		$post = $this->find('first', array('conditions'=>array('Post.id' => $id)));
+		$selected = array();
+		foreach ($post['CategoryOrder'] as $catOrd) {
+			$selected[]=$catOrd['category_id'];
+		}
+		return $selected;
+	}
+	
 
 }

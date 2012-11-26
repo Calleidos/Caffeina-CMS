@@ -73,6 +73,23 @@ class Category extends AppModel {
 				'counterQuery' => ''
 		)
 	);
+	
+	
+	public function generateTreeListPostType ($posttype=null) {
+		$categories=$this->children($this->getPostTypeParent($posttype), false, 'id');
+		$ids=array();
+		foreach ($categories as $cat)
+			$ids[]=$cat['Category']['id'];
+		return $this->generateTreeList(array('id' => $ids), null, null, "- ");
+		
+	}
+	
+	public function getPostTypeParent ($posttype = null) {
+		$this->recursive=-1;
+		$conditions=$this->find('first', array('conditions' => array('Category.parent_id' => NULL, 'Category.posttype_id' =>$posttype), 'fields'=> array('id')));
+		return $conditions['Category']['id'];
+	}
+	
 
 
 }

@@ -19,7 +19,7 @@
 
 	<!--  start page-heading -->
 	<div id="page-heading">
-		<h1><?php echo __('Elenco prodotti')?></h1>
+		<h1><?php echo __('Elenco')?> <?php echo $posttype['Posttype']['name'] ?></h1>
 	</div>
 	<!-- end page-heading -->
 
@@ -46,7 +46,7 @@
 				<!--  start post-table ..................................................................................... -->
 				<form id="mainform" action="">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="post-table">
-				<h2><?php echo __('Prodotti');?></h2>
+				<h2><?php echo $posttype['Posttype']['name'] ?></h2>
 					
 					<tr>
 						<th class="table-header-check"><a id="toggle-all" ></a> </th>

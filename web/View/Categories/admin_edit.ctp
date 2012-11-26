@@ -29,10 +29,8 @@
 						);
 						if (isset($this->data['Category']['id']))
 							echo $this->Form->input('id', array('class'=>'page-title ui-corner-all tabs_input'));
-						if (isset($this->request->data['Category']['foreign_model']))
-							$model=$this->request->data['Category']['foreign_model'];
-						if (isset($model)) 
-							echo $this->Form->input('foreign_model', array('type'=>'hidden', 'value'=>$model));
+						if (isset($this->data['Category']['posttype_id']))
+							echo $this->Form->input('posttype_id', array('type'=>'hidden'));
 						echo $this->Form->input('parent_id', array('options'=>$parentCategories));
 						echo $this->Form->input('name', array('class'=>'page-title ui-corner-all tabs_input'));
 						echo $this->Form->input('description', array('class'=>'page-title ui-corner-all tabs_input'));

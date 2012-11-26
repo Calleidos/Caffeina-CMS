@@ -36,11 +36,18 @@ class PostsController extends AppController {
  *
  * @return void
  */
-	public function admin_index() {
+	public function admin_index($posttype=null) {
+		$this->Post->Posttype->id = $posttype;
+		if (!$this->Post->Posttype->exists()) {
+			throw new NotFoundException(__('Invalid posttype'));
+		}
+		$this->Post->Posttype->recursive=-1;
+		$this->set("posttype", $this->Post->Posttype->find('first', array('conditions' => array('id'=>$posttype))));
 		$this->Post->recursive=-1;
 		$this->Post->Behaviors->attach('Containable');
 		$this->paginate['contain']=array('CategoryOrder', "PostVersion");
 		$categories=$this->Post->CategoryOrder->Category->find('list', array('fields'=> array('id', 'name')));
+		$this->paginate['conditions']["Post.posttype_id"] = $posttype;
 		$posts=$this->paginate();
 		foreach ($posts as $key=>$post) {
 			$pvs=array();
@@ -54,10 +61,16 @@ class PostsController extends AppController {
 		$this->set('totalPosts', $this->Post->find('count'));
 	}
 	
-	public function admin_trash() {
+	public function admin_trash($posttype=null) {
+		$this->Post->Posttype->id = $posttype;
+		if (!$this->Post->Posttype->exists()) {
+			throw new NotFoundException(__('Invalid posttype'));
+		}
+		$this->Post->Posttype->recursive=-1;
+		$this->set("posttype", $this->Post->Posttype->find('first', array('conditions' => array('id'=>$posttype))));
 		$this->Post->recursive=-1;
 		$categories=$this->Post->CategoryOrder->Category->find('list', array('fields'=> array('id', 'name')));
-		$posts=$this->Post->find('all', array('conditions' => array('deleted' => 1)));
+		$posts=$this->Post->find('all', array('conditions' => array('deleted' => 1, 'posttype_id' => $posttype)));
 		foreach ($posts as $key=>$post) {
 			$pvs=array();
 			foreach ($post['PostVersion'] as $pv)
@@ -68,7 +81,6 @@ class PostsController extends AppController {
 		}
 		$this->set('posts', $posts);
 		$this->set('totalPosts', $this->Post->find('count'));
-		$this->render("admin_index");
 	}
 	
 	
@@ -86,46 +98,6 @@ class PostsController extends AppController {
 		$this->set('post', $this->Post->read(null, $id));
 	}
 	
-
-
-/**
- * admin_index method
- *
- * @return void
- *//*
-	public function admin_index() {
-		$nestedCategories=$this->Post->CategoryOrder->Category->find('threaded', array('conditions'=> array('Category.foreign_model' => 'Post')));
-		
-		$categoryTree=$this->Post->CategoryOrder->Category->generateTreeList(array('Category.foreign_model' => 'Post'));
-		//pr($categoryTree);
-		//pr($nestedCategories);
-		
-		//$nestedCategories=$this->listNestedCategories();
-		$this->set("nestedCategories", $nestedCategories);
-		
-		
-		
-		$posts=$this->Post->find("all");
-		foreach ($posts as $post) {
-			$ids[]=$post['Post']['id'];
-		}
-		
-		$pvs=$this->Post->PostVersion->find("all", array("conditions" => array('post_id' => $ids)));
-		$postVersions=array();
-		foreach ($pvs as $key=>$pv) {
-			$postVersions[$pv["PostVersion"]['post_id']][$pv["PostVersion"]['language_id']]=$pv;
-		}
-		$this->set("postVersions", $postVersions);
-		/*
-		$this->Post->recursive = 0;
-		$posts=$this->paginate();
-		foreach ($posts as $post) {
-			$ids[]=$post['Post']['id'];
-		}
-		*//*
-		$this->set("languages", $this->Post->PostVersion->Language->find("all", array('conditions'=>array('active' => 1))));
-		
-	}*/
 
 /**
  * admin_view method
@@ -147,7 +119,7 @@ class PostsController extends AppController {
  *
  * @return void
  */
-	public function admin_add() {
+	public function admin_add($posttype=null) {
 		if ($this->request->is('post')) {
 			$this->Post->create();
 			foreach ($this->request->data["PostVersion"] as $id=>$pv) {
@@ -178,7 +150,7 @@ class PostsController extends AppController {
 				$this->_flash(__('The post has been saved.', true),'green');
 				
 				
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index', $this->request->data['Post']['posttype_id']));
 			} else {
 				/*$this->Session->setFlash(__('The post could not be saved. Please, try again.'));*/
 
@@ -186,7 +158,8 @@ class PostsController extends AppController {
 				
 			}
 		}
-		$categories = $this->Post->CategoryOrder->Category->generateTreeList(null, null, null, "- ");
+		$this->set('posttype', $posttype);
+		$categories = $this->Post->CategoryOrder->Category->generateTreeListPostType($posttype);
 		$this->set(compact('categories'));
 		$languages=$this->Post->PostVersion->Language->find('list', array('order' => array('Language.order')));
 		$this->set("languages", $languages);
@@ -237,7 +210,7 @@ class PostsController extends AppController {
 					$this->Post->CategoryOrder->saveAll($defC);
 				/*$this->Session->setFlash(__('The post has been saved'));*/
 				$this->_flash(__('The post has been saved.', true),'green');
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index', $this->request->data['Post']['posttype_id']));
 			} else {
 				/*$this->Session->setFlash(__('The post could not be saved. Please, try again.'));*/
 				$this->_flash(__('The post could not be saved. Please, try again.', true),'red');
@@ -250,16 +223,22 @@ class PostsController extends AppController {
 			$post['PostVersion']=$versions;
 			$this->request->data=$post;
 		}
-		$categories = $this->Post->CategoryOrder->Category->generateTreeList(null, null, null, "- ");
-		$selected = array();
-		foreach ($post['CategoryOrder'] as $catOrd) {
-			$selected[]=$catOrd['category_id'];
-		}
-		$this->set('selectedCategories', $selected);
+		
+		$posttype=$post['Post']['posttype_id'];
+		
+		$this->set('posttype', $posttype);
+		$categories = $this->Post->CategoryOrder->Category->generateTreeListPostType($posttype);
+		$this->set(compact('categories'));
+		
+		$this->set('selectedCategories', $this->Post->selectedCategories($post['Post']['id']));
 		$this->set(compact('categories'));
 		$this->set("languages", $this->Post->PostVersion->Language->find('list', array('conditions' => array('Language.active'=>true), 'order' => array('Language.order')) ));
 	}
 
+	
+	
+	
+	
 /**
  * admin_delete method
  *
@@ -274,21 +253,20 @@ class PostsController extends AppController {
 		if (!$this->Post->exists()) {
 			throw new NotFoundException(__('Invalid post'));
 		}
-		$data=array('Post' => array('id'=>$id, 'deleted' => 1));
+		$data=$this->Post->read(null, $id);
+		$data['Post']['deleted']=1;
 		if ($this->Post->save($data)) {
-			/*$this->Session->setFlash(__('Post deleted'));*/
-	
+				
 			$this->_flash(__('Post has been deleted.', true),'green');
 				
 			$this->admin_reorder($this->Post->CategoryOrder->find('list', array('conditions' => array('post_id' => $id), 'fields' => array('category_id'))));
-			$this->redirect(array('action' => 'index'));
+			$this->redirect(array('action' => 'index', $data['Post']['posttype_id']));
 		}
-		/*$this->Session->setFlash(__('Post was not deleted'));*/
-	
+			
 		$this->_flash(__('Post was not deleted.', true),'red');
 			
 			
-		$this->redirect(array('action' => 'index'));
+		$this->redirect(array('action' => 'index', $data['Post']['posttype_id']));
 	}
 	
 /**
@@ -305,33 +283,30 @@ class PostsController extends AppController {
 		if (!$this->Post->exists()) {
 			throw new NotFoundException(__('Invalid post'));
 		}
+		$data=$this->Post->read(null, $id);
 		if ($this->Post->delete()) {
-			/*$this->Session->setFlash(__('Post deleted'));*/
-
 			$this->_flash(__('Post has been deleted.', true),'green');
 			
 			$this->admin_reorder($this->Post->CategoryOrder->find('list', array('conditions' => array('post_id' => $id), 'fields' => array('category_id'))));
-			$this->redirect(array('action' => 'index'));
+			$this->redirect(array('action' => 'index', $data['Post']['posttype_id']));
 		}
-		/*$this->Session->setFlash(__('Post was not deleted'));*/
 
-			$this->_flash(__('Post was not deleted.', true),'red');
-			
-			
-		$this->redirect(array('action' => 'index'));
+		$this->_flash(__('Post was not deleted.', true),'red');
+					
+		$this->redirect(array('action' => 'index', $data['Post']['posttype_id']));
 	}
 	
 	public function admin_reorder($categories=null) {
 		if ($categories<>null && !empty($categories) ) {
 			foreach ($categories as $category) {
-				$this->Category->CategoryOrder->recursive=0;
-				$posts=$this->Category->CategoryOrder->find("all", array('conditions' => array('category_id' => $category, 'Product.deleted' => 0), "order"=>array("order")));
+				$this->Post->CategoryOrder->recursive=0;
+				$posts=$this->Post->CategoryOrder->find("all", array('conditions' => array('category_id' => $category, 'Post.deleted' => 0), "order"=>array("order")));
 				$i=1;
 				foreach($posts as $key=>$post){
 					$posts[$key]['CategoryOrder']['order']=$i;
 					$i++;
 				}
-				$this->Category->CategoryOrder->saveMany($posts);
+				$this->Post->CategoryOrder->saveMany($posts);
 				$this->autoRender=false;
 			}
 		}

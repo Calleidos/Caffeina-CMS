@@ -337,10 +337,11 @@ $(document).pngFix( );
 		<!--[if lte IE 6]><table><tr><td><![endif]-->
 		<div class="select_sub show">
 			<ul class="sub">
-				<li class="sub_show"><?php echo $this->Html->link(__('Elenco prodotti'), array('controller' => 'posts', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
-				<li><?php echo $this->Html->link(__('Aggiungi prodotto'), array('controller' => 'posts', 'action' => 'add', 'prefix'=>'admin'), array('class' => ''));?></li>
-				<li><?php echo $this->Html->link(__('Elenco categorie'), array('controller' => 'categories', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
-				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'trash', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li class="sub_show"><?php echo $this->Html->link(__('Elenco prodotti'), array('controller' => 'posts', 'action' => 'index', 'prefix'=>'admin', 1), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Aggiungi prodotto'), array('controller' => 'posts', 'action' => 'add', 'prefix'=>'admin', 1), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Elenco categorie'), array('controller' => 'categories', 'action' => 'index', 'prefix'=>'admin', 1), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Aggiungi categoria'), array('controller' => 'categories', 'action' => 'add', 'prefix'=>'admin', 1), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'trash', 'action' => 'index', 'prefix'=>'admin', 1), array('class' => ''));?></li>
 			</ul>
 		</div>
 		<!--[if lte IE 6]></td></tr></table></a><![endif]-->

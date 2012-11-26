@@ -19,7 +19,7 @@
 
 	<!--  start page-heading -->
 	<div id="page-heading">
-		<h1><?php echo __("Elenco categorie:"); ?></h1>
+		<h1><?php echo __("Categoria"); ?> : <?php echo $category["Category"]["name"]; ?></h1>
 	</div>
 	<!-- end page-heading -->
 
@@ -43,24 +43,38 @@
 				<!--  start post-table ..................................................................................... -->
 				<form id="mainform" action="">
 				<table border="0" width="100%" cellpadding="0" cellspacing="0" id="post-table">
-				<h2><?php echo $posttype['Posttype']['name'] ?></h2>
+				<h2><?php echo __('Prodotti');?></h2>
 					
 					<tr>
 						<th class="table-header-check"><a id="toggle-all" ></a> </th>
 						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Titolo in Italiano'); ?></span></th>
+						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Codice'); ?></span></th>
+						<th class="table-header-repeat line-left"><span><?php echo __('Ordine');?></span></th>
 						<th class="table-header-repeat line-left" class="actions"><span><?php echo __('Actions');?></span></th>
 					</tr><?php $temp = false;
-					foreach ($categories as $key=>$category): ?>
+					foreach ($posts as $post): ?>
 					<tr <?php  if($temp == true){echo 'class="alternate-row"'; $temp = false;}else{$temp = true;} ?> >
 						<td><input type="checkbox" /></td>
-						<td><?php echo $this->Html->link($category, array('controller' => 'categories'	, 'action' => 'edit', $key)); ?>&nbsp;</td>
+						<td><?php echo h($post['PostVersion'][$mainLanguage]['name']); ?>&nbsp;</td>
+						<td><?php echo h($post['Post']['code']); ?></td>
 						
+						<td><?php /*echo h($post['Post']['order']); */?>
+							<ul class="ordering"><?php 
+								if ($post['Post']['order']>1) {?>
+						    		<li><button class="act up_order" onclick="order('posts', <?php echo $category["Category"]["id"]; ?>, <?php echo $post['Post']['id'] ?>, -1); return false;" class=''><?php echo __('Sposta su');?></button></li><?php
+						    	}
+						    	if ($post['Post']['order']<$totalPosts) {?>
+						    		<li><button class="act down_order" onclick="order('posts', <?php echo $category["Category"]["id"]; ?>, <?php echo $post['Post']['id'] ?>, +1); return false;" class=''><?php echo __('Sposta giu');?></button></li><?php
+						    	}?>
+					    	</ul>
+						
+						</td>
 						<td class="options-width act">
 							<span class="btn_yellow">
-								<?php echo $this->Html->link(__('Edit'), array('controller' => 'categories'	, 'action' => 'edit', $key)); ?>
+								<?php echo $this->Html->link(__('Edit'), array('controller' => 'posts', 'action' => 'edit', $post['Post']['id'])); ?>
 							</span>
 							<span class="btn_red">
-								<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'categories', 'action' => 'delete', $key), null, __('Are you sure you want to delete # %s?', $category['id'])); ?>
+								<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'posts', 'action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id'])); ?>
 							</span>
 						</td>
 					</tr>

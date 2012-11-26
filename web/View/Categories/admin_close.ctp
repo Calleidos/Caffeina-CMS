@@ -4,13 +4,14 @@
 		jQuery(document).ready(function($){
 			$.ajax({
 				async:true, 
-				data:{id:'<?php echo $id ?>'},
+				data:{posttypeId:'<?php echo $posttypeId ?>'},
 				dataType:"html", 
 				success:function (data) {
-
-					// JACKKKKKKK DIOBOIA
-					
-					$('.category-box', parent.document).html(data);
+					var selected=$('.cat-box .checkbox', parent.document).children("input:checked");
+					$('.cat-box', parent.document).html(data);
+					$(selected).each(function() {
+						$("#"+$(this, parent.document).attr("id"), parent.document ).attr("checked", "checked");
+					});
 					parent.createIcons();
 					parent.fancyImages();
 					parent.$.fancybox.close();

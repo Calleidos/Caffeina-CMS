@@ -1,8 +1,6 @@
 <?php 
 //echo $this->Html->css('cake.generic');
  echo $this->Html->css('main');
-		
- 
  
  		$this->element("fancybox_links");
 		$this->Html->css('datetimepicker', null, array('inline' => false));
@@ -54,7 +52,7 @@
 
 	<!--  start page-heading -->
 	<div id="page-heading">
-		<h1><?php echo __('Modifica Prodotto')?></h1>
+		<h1><?php echo __('Modifica Articolo')?></h1>
 	</div>
 	<!-- end page-heading -->
 
@@ -115,6 +113,8 @@
 					<?php
 						if (isset($this->data['Post']['id']))
 							echo $this->Form->input('id');
+						if (isset($posttype))
+							echo $this->Form->input("Post.posttype_id", array("value" => $posttype, 'type' => 'hidden'));
 						echo $this->Form->input('code', array('class' => 'page-title ui-corner-all tabs_input'));
 					?>
 					<br />
@@ -154,13 +154,14 @@
 						}?>
 					</div>
 					</td>
-					<td colspan="2" style="vertical-align:top;width:130px;">
+					<td colspan="2" style="vertical-align:top;width:130px;" class="cat-box">
+					
 						<?php
 						if (!isset($selectedCategories))
 							$selectedCategories=array();
 						echo $this->Form->input('CategoryOrder.category_id', array('type' => 'select', 'multiple'=>"checkbox", 'div' =>"", 'label' => false, 'selected' => $selectedCategories));?>
 					
-						<a class="fancy-modal" href="/admin/categories/addAjax/Post">
+						<a class="fancy-modal" href="/admin/categories/addAjax/<?php echo $posttype ?>">
 							
 							<button onclick="return false;" class="add-button act btn_green" style="height:25px;"><?php echo __("Add Category"); ?></button>
 							
