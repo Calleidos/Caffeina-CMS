@@ -341,7 +341,7 @@ $(document).pngFix( );
 				<li><?php echo $this->Html->link(__('Aggiungi prodotto'), array('controller' => 'posts', 'action' => 'add', 'prefix'=>'admin', 1), array('class' => ''));?></li>
 				<li><?php echo $this->Html->link(__('Elenco categorie'), array('controller' => 'categories', 'action' => 'index', 'prefix'=>'admin', 1), array('class' => ''));?></li>
 				<li><?php echo $this->Html->link(__('Aggiungi categoria'), array('controller' => 'categories', 'action' => 'add', 'prefix'=>'admin', 1), array('class' => ''));?></li>
-				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'trash', 'action' => 'index', 'prefix'=>'admin', 1), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'posts', 'action' => 'trash', 'prefix'=>'admin',1), array('class' => ''));?></li>
 			</ul>
 		</div>
 		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -372,7 +372,7 @@ $(document).pngFix( );
 			<ul class="sub">
 				<li><?php echo $this->Html->link(__('Elenco notizie'), array('controller' => 'news', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
 				<li><?php echo $this->Html->link(__('Aggiungi notizia'), array('controller' => 'news', 'action' => 'add', 'prefix'=>'admin'), array('class' => ''));?></li>
-				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'trash', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'posts', 'action' => 'trash', 'prefix'=>'admin',2), array('class' => ''));?></li>
 			</ul>
 		</div>
 		<!--[if lte IE 6]></td></tr></table></a><![endif]-->

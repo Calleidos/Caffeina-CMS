@@ -68,7 +68,6 @@ class PostsController extends AppController {
 		}
 		$this->Post->Posttype->recursive=-1;
 		$this->set("posttype", $this->Post->Posttype->find('first', array('conditions' => array('id'=>$posttype))));
-		$this->Post->recursive=-1;
 		$categories=$this->Post->CategoryOrder->Category->find('list', array('fields'=> array('id', 'name')));
 		$posts=$this->Post->find('all', array('conditions' => array('deleted' => 1, 'posttype_id' => $posttype)));
 		foreach ($posts as $key=>$post) {

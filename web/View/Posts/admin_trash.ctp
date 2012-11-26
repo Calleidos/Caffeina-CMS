@@ -19,7 +19,7 @@
 
 	<!--  start page-heading -->
 	<div id="page-heading">
-		<h1><?php echo __("Categoria"); ?> : <?php echo $category["Category"]["name"]; ?></h1>
+		<h1><?php echo __("Cestino"); ?>:</h1>
 	</div>
 	<!-- end page-heading -->
 
@@ -49,26 +49,15 @@
 						<th class="table-header-check"><a id="toggle-all" ></a> </th>
 						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Titolo in Italiano'); ?></span></th>
 						<th class="table-header-repeat line-left minwidth-1"><span><?php echo __('Codice'); ?></span></th>
-						<th class="table-header-repeat line-left"><span><?php echo __('Ordine');?></span></th>
 						<th class="table-header-repeat line-left" class="actions"><span><?php echo __('Actions');?></span></th>
 					</tr><?php $temp = false;
 					foreach ($posts as $post): ?>
 					<tr <?php  if($temp == true){echo 'class="alternate-row"'; $temp = false;}else{$temp = true;} ?> >
 						<td><input type="checkbox" /></td>
-						<td><?php echo h($post['PostVersion'][$mainLanguage]['name']); ?>&nbsp;</td>
+						<td><?php echo $this->Html->link(h($post['PostVersion'][$mainLanguage]['name']), array('controller' => 'posts', 'action' => 'edit', $post['Post']['id']), array('class' => 'cat_link')); ?></td>
 						<td><?php echo h($post['Post']['code']); ?></td>
 						
-						<td><?php /*echo h($post['Post']['order']); */?>
-							<ul class="ordering"><?php 
-								if ($post['Post']['order']>1) {?>
-						    		<li><button class="act up_order" onclick="order('posts', <?php echo $category["Category"]["id"]; ?>, <?php echo $post['Post']['id'] ?>, -1); return false;" class=''><?php echo __('Sposta su');?></button></li><?php
-						    	}
-						    	if ($post['Post']['order']<$totalPosts) {?>
-						    		<li><button class="act down_order" onclick="order('posts', <?php echo $category["Category"]["id"]; ?>, <?php echo $post['Post']['id'] ?>, +1); return false;" class=''><?php echo __('Sposta giu');?></button></li><?php
-						    	}?>
-					    	</ul>
 						
-						</td>
 						<td class="options-width act">
 							<span class="btn_yellow">
 								<?php echo $this->Html->link(__('Edit'), array('controller' => 'posts', 'action' => 'edit', $post['Post']['id'])); ?>
