@@ -147,30 +147,32 @@
 							
 						</a>
 					</td>
-				</tr>
-				<tr>
-					<td colspan="4">
-						<div class="tabs docs-editor"><?php 
-							$images=count($this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($posttype))))>0; 
-							$docs=count($this->requestAction(array('controller' => 'documenttypes', 'action' => 'admin_listDocumentTypes' ), array('pass' => array($posttype))))>0; ?>
-							<ul>
-								<?php if ($images) { ?><li><a href="#tab-images"><?php echo __('Foto prodotti'); ?></a></li><?php } ?>
-								<?php if ($docs) { ?><li><a href="#tab-documents"><?php echo __('Documenti prodotti'); ?></a></li><?php } ?>
-							</ul><?php 
-							if ($images) {
-								$details=array('type' => 'image', 'model' => 'Post', 'posttype' => $posttype);
-								$this->set('details',$details);
-								echo $this->element('/admin/file_list');
-							}
-							if ($docs) {
-								$details=array('type' => 'document', 'model' => 'Post', 'posttype' => $posttype);
-								$this->set('details',$details);
-								echo $this->element('/admin/file_list');
-							} ?>
-						</div>
-						<div class="clear">&nbsp;</div>
-					</td>
-				</tr>
+				</tr><?php 
+					$images=count($this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($posttype))))>0; 
+					$docs=count($this->requestAction(array('controller' => 'documenttypes', 'action' => 'admin_listDocumentTypes' ), array('pass' => array($posttype))))>0; 
+				if ($images || $docs) {?>
+					<tr>
+						<td colspan="4">
+							<div class="tabs docs-editor">
+								<ul>
+									<?php if ($images) { ?><li><a href="#tab-images"><?php echo __('Foto prodotti'); ?></a></li><?php } ?>
+									<?php if ($docs) { ?><li><a href="#tab-documents"><?php echo __('Documenti prodotti'); ?></a></li><?php } ?>
+								</ul><?php 
+								if ($images) {
+									$details=array('type' => 'image', 'model' => 'Post', 'posttype' => $posttype);
+									$this->set('details',$details);
+									echo $this->element('/admin/file_list');
+								}
+								if ($docs) {
+									$details=array('type' => 'document', 'model' => 'Post', 'posttype' => $posttype);
+									$this->set('details',$details);
+									echo $this->element('/admin/file_list');
+								} ?>
+							</div>
+							<div class="clear">&nbsp;</div>
+						</td>
+					</tr>
+				<?php } ?>
 			</table>
 					
 			
