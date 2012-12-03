@@ -29,8 +29,8 @@
 						<legend><?php echo __('Aggiungi immagine'); ?></legend><?php
 						echo $this->Form->input('Image.name', array("class" => "page-title ui-corner-all tabs_input"));
 						echo $this->Form->input('Image.foreign_id', array('value'=>$foreign_id, 'type' =>"hidden"));
-						echo $this->Form->input('Image.foreign_model', array('value'=>"Post", 'type' =>"hidden"));
-						echo $this->Form->input('Image.tipologia', array('type'=>'select', 'options'=>Configure::read("tipologiaImmagine"), 'class' => 'styledselect'));
+						echo $this->Form->input('Image.posttype_id', array('value'=>$posttype, 'type' =>"hidden"));
+						echo $this->Form->input('Image.imagetype_id', array('type'=>'select', 'options'=>$this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($posttype))), 'class' => 'styledselect'));
 						?>
 						<table cellspacing="0" cellpadding="0" style="width:100%">
 						<tr>

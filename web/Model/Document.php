@@ -67,9 +67,16 @@ class Document extends AppModel {
 		'Post' => array(
 			'className' => 'Post',
 			'foreignKey' => 'foreign_id',
-			'conditions' => 'Document.foreign_model="Post"',
+			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Documenttype' => array(
+				'className' => 'Documenttype',
+				'foreignKey' => 'documenttype_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
 		)
 	);
 	function beforeValidate() {

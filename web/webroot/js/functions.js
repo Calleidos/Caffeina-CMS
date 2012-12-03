@@ -20,8 +20,14 @@ function editFile(id, model) {
 		async:true, 
 		data:{id: id},
 		dataType:"html", 
-		success:function (data) {				
-			$('#'+model+'-list tr#'+model+"-"+id).hide("slow", function(){ $(this).replaceWith(data); $('.order-icons ul').remove(); createIcons(); tinyMCE.init({mode:"textareas", theme : 'advanced', theme_advanced_statusbar_location : "bottom", theme_advanced_toolbar_location : "top",}); });
+		success:function (data) {
+			$('#'+model+'-list tr#'+model+"-"+id)
+				.hide("slow", function(){ 
+					$('#'+model+'-list tr#'+model+"-"+id).replaceWith(data); 
+					$('.order-icons ul').remove(); 
+					createIcons(); 
+					tinyMCE.init({mode:"textareas", theme : 'advanced', theme_advanced_statusbar_location : "bottom", theme_advanced_toolbar_location : "top"}); 
+				});
 			
 		}, 
 		type:"post",
@@ -37,16 +43,16 @@ function saveFile(id, model) {
 		data={
 			id			: id,
 			name 		: $("tr#"+model+"-"+id+" input#"+ucModel+id+"Name").val(),
-			tipologia 	: $("tr#"+model+"-"+id+" input#"+ucModel+id+"Tipologia").val()
+			imagetype_id: $("tr#"+model+"-"+id+" select#"+ucModel+id+"ImagetypeId").val()
 		};
 	}
 	
 	if (model=="document") {
 		data={
-			id			: id,
-			name 		: $("tr#"+model+"-"+id+" input#"+ucModel+id+"Name").val(),
-			tipologia 	: $("tr#"+model+"-"+id+" input#"+ucModel+id+"Tipologia").val(),
-			description	: $("tr#"+model+"-"+id+" #"+ucModel+id+"DescriptionTextArea iframe").contents().find("body").html(),
+			id				: id,
+			name 			: $("tr#"+model+"-"+id+" input#"+ucModel+id+"Name").val(),
+			documenttype_id	: $("tr#"+model+"-"+id+" select#"+ucModel+id+"DocumenttypeId").val(),
+			description		: $("tr#"+model+"-"+id+" #"+ucModel+id+"DescriptionTextArea iframe").contents().find("body").html(),
 		};
 	}
 	

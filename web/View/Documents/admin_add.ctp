@@ -37,8 +37,8 @@
 						<legend><?php echo __('Aggiungi documento'); ?></legend><?php
 						echo $this->Form->input('Document.name', array('class'=>'page-title ui-corner-all tabs_input'));
 						echo $this->Form->input('Document.foreign_id', array('value'=>$foreign_id, 'type' =>"hidden"));
-						echo $this->Form->input('Document.foreign_model', array('value'=>"Post", 'type' =>"hidden"));
-						echo $this->Form->input('Document.tipologia', array('type'=>'select', 'options'=>Configure::read("tipologiaDocumento"), 'class' => 'styledselect'));
+						echo $this->Form->input('Document.posttype_id', array('value'=>$posttype, 'type' =>"hidden"));
+						echo $this->Form->input('Document.imagetype_id', array('type'=>'select', 'options'=>$this->requestAction(array('controller' => 'documenttypes', 'action' => 'admin_listDocumentTypes' ), array('pass' => array($posttype))), 'class' => 'styledselect'));
 						?>
 						<table cellspacing="0" cellpadding="0" style="width:100%">
 						<tr>

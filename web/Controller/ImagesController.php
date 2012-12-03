@@ -10,7 +10,7 @@ class ImagesController extends AppController {
 	
 	
 	
-	public function admin_add($foreign_model, $foreign_id=null) {
+	public function admin_add($posttype, $foreign_id=null) {
 		if ($this->request->is('post')) {
 			$this->Image->create();
 			$this->request->data['Image']['original_name']=$_FILES['data']['name']['Image']['fileName'];
@@ -24,7 +24,7 @@ class ImagesController extends AppController {
 		}
 		if (!isset($foreign_id))
 			$foreign_id=0;
-		$this->set("foreign_model", $foreign_model);
+		$this->set("posttype", $posttype);
 		$this->set("foreign_id", $foreign_id);
 		$this->layout="iframe";
 		

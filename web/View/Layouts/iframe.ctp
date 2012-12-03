@@ -237,7 +237,7 @@ $(document).pngFix( );
 </script>
 </head>
 <body> 
-<?php /* echo $this->element('sql_dump'); */ ?>
+<?php echo $this->element('sql_dump'); //*/ ?>
 <!-- Start: page-top-outer -->
 
 

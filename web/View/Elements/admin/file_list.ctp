@@ -13,13 +13,14 @@
 				foreach ($this->request->data[ucwords($details['type'])] as $key=>$file) {
 					if (isset($this->request->data[$details['model']]['id']))
 						$file['foreign_id']=$this->request->data[$details['model']]['id'];
+					$file['posttype_id']=$posttype;
 					$this->set('element',$file);
 					echo $this->element('/admin/'.Inflector::pluralize($details['type']).'/admin_list');
 				}
 			}?>
 		</tbody>
 	</table>
-	<a class="fancy-modal" href="/admin/<?php echo Inflector::pluralize($details['type']); ?>/add/<?php echo $details['model'] ?>/<?php if (isset($this->request->data[$details['model']]['id'])) echo $this->request->data[$details['model']]['id'] ?>">
+	<a class="fancy-modal" href="/admin/<?php echo Inflector::pluralize($details['type']); ?>/add/<?php echo $details['posttype'] ?>/<?php if (isset($this->request->data[$details['model']]['id'])) echo $this->request->data[$details['model']]['id'] ?>">
 		<button class="act plus" onclick="return false;" class="add-button">
 			<?php echo __("Aggiungi"); ?>&nbsp;<?php echo ucwords($details['type']); ?>
 		</button>

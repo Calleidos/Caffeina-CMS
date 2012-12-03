@@ -49,5 +49,6 @@ class Posttype extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-
+	
+	public $hasAndBelongsToMany = array('Imagetype', 'Documenttype');
 }

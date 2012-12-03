@@ -50,7 +50,7 @@ class Post extends AppModel {
 			'className' => 'Image',
 			'foreignKey' => 'foreign_id',
 			'dependent' => true,
-			'conditions' => 'Image.foreign_model="Post"',
+			'conditions' => '',
 			'fields' => '',
 			'order' => 'Image.order',
 			'limit' => '',
@@ -63,7 +63,7 @@ class Post extends AppModel {
 			'className' => 'Document',
 			'foreignKey' => 'foreign_id',
 			'dependent' => true,
-			'conditions' => 'Document.foreign_model="Post"',
+			'conditions' => '',
 			'fields' => '',
 			'order' => 'Document.order',
 			'limit' => '',
@@ -86,6 +86,7 @@ class Post extends AppModel {
 				'counterQuery' => ''
 		)
 	);
+	
 	
 	public function selectedCategories($id=null) {
 		$post = $this->find('first', array('conditions'=>array('Post.id' => $id)));

@@ -24,7 +24,7 @@ class DocumentsController extends AppController {
 		}
 		if (!isset($foreign_id))
 			$foreign_id=0;
-		$this->set("foreign_model", $foreign_model);
+		$this->set("posttype", $posttype);
 		$this->set("foreign_id", $foreign_id);
 		$this->layout="iframe";
 	}

@@ -2,11 +2,8 @@
 	<td>
 		<?php 
 			echo $this->Form->input("Image.{$element['id']}.id", array("value" => $element['id'], "type"=>"hidden"));
-			if (isset($element['foreign_id'])) 
-				echo $this->Form->input("Image.{$element['id']}.foreign_model", array("value" => $element['foreign_model'], "type"=>"hidden"));
-			echo $this->Form->input("Image.{$element['id']}.foreign_model", array("value" => $element['foreign_model'], "type"=>"hidden"));
+			echo $this->Form->input("Image.{$element['id']}.posttype_id", array("value" => $element['posttype_id'], "type"=>"hidden"));
 			echo $this->Form->input("Image.{$element['id']}.name", array("value" => $element['name'], "type"=>"hidden"));
-			echo $this->Form->input("Image.{$element['id']}.tipologia", array("value" => $element['tipologia'], "type"=>"hidden"));
 		?>
 		<button onclick="if(confirm('<?php echo __("Are you sure you want to delete this file?")?>')) {deleteFile(<?php echo $element['id'] ?>, 'image');} return false;" class="act btn_red"><?php echo __("Delete file"); ?></button>
 		<button onclick="editFile(<?php echo $element['id'] ?>, 'image'); return false;" class="act btn_yellow"><?php echo __("Edit file"); ?></button>
@@ -15,7 +12,9 @@
 		<?php echo $element['name'] ?>
 	</td>
 	<td>
-		<?php echo $element['tipologia'] ?>
+		<?php
+		$types=$this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($element['posttype_id'])));
+		echo $types[$element['imagetype_id']] ?>
 	</td>
 	<td class="order-icons">
 		<?php echo $element['order'] ?>

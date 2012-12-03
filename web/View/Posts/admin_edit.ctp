@@ -73,27 +73,7 @@
 			<!--  start table-content  -->
 			<div id="table-content">
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-<?php echo $this->Form->create('Post');?>
+			<?php echo $this->Form->create('Post');?>
 	
 	
 			<table border="0" width="100%" cellpadding="0" cellspacing="0" id="post-table" >
@@ -170,19 +150,23 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<div class="tabs docs-editor">
+						<div class="tabs docs-editor"><?php 
+							$images=count($this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($posttype))))>0; 
+							$docs=count($this->requestAction(array('controller' => 'documenttypes', 'action' => 'admin_listDocumentTypes' ), array('pass' => array($posttype))))>0; ?>
 							<ul>
-								<li><a href="#tab-images"><?php echo __('Foto prodotti'); ?></a></li>
-								<li><a href="#tab-documents"><?php echo __('Documenti prodotti'); ?></a></li>
+								<?php if ($images) { ?><li><a href="#tab-images"><?php echo __('Foto prodotti'); ?></a></li><?php } ?>
+								<?php if ($docs) { ?><li><a href="#tab-documents"><?php echo __('Documenti prodotti'); ?></a></li><?php } ?>
 							</ul><?php 
-							
-							$details=array('type' => 'image', 'model' => 'Post');
-							$this->set('details',$details);
-							echo $this->element('/admin/file_list');
-							$details=array('type' => 'document', 'model' => 'Post');
-							$this->set('details',$details);
-							echo $this->element('/admin/file_list');?>
-							
+							if ($images) {
+								$details=array('type' => 'image', 'model' => 'Post', 'posttype' => $posttype);
+								$this->set('details',$details);
+								echo $this->element('/admin/file_list');
+							}
+							if ($docs) {
+								$details=array('type' => 'document', 'model' => 'Post', 'posttype' => $posttype);
+								$this->set('details',$details);
+								echo $this->element('/admin/file_list');
+							} ?>
 						</div>
 						<div class="clear">&nbsp;</div>
 					</td>

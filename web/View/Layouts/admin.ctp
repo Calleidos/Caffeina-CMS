@@ -234,7 +234,6 @@ $(document).pngFix( );
 </script>
 </head>
 <body> 
-<?php echo $this->element('sql_dump'); ?>
 <!-- Start: page-top-outer -->
 <div id="page-top-outer">    
 
@@ -435,6 +434,7 @@ $(document).pngFix( );
 	<div class="clear">&nbsp;</div>
 </div>
 <!-- end footer -->
+<div style="font-size:12px !important:; clear:both"><?php echo $this->element('sql_dump'); ?></div>
 
 </body>
 </html>

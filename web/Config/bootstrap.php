@@ -75,10 +75,6 @@ CakePlugin::load('AclExtras');
 CakePlugin::load('TinyMce');
 CakePlugin::load('Uploader');
 
-$tipologiaImmagine=array("Header");
-$tipologiaImmagine=array_combine($tipologiaImmagine, $tipologiaImmagine);
-Configure::write('tipologiaImmagine', $tipologiaImmagine);
-
 $tipologiaDocumento=array("Catalogo", "Scheda Tecnica");
 $tipologiaDocumento=array_combine($tipologiaDocumento, $tipologiaDocumento);
 Configure::write('tipologiaDocumento', $tipologiaDocumento);

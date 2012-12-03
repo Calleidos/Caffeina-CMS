@@ -2,9 +2,7 @@
 	<td>
 		<?php 
 			echo $this->Form->input("Image.{$element['id']}.id", array("value" => $element['id'], "type"=>"hidden"));
-			if (isset($element['foreign_id'])) 
-				echo $this->Form->input("Image.{$element['id']}.foreign_model", array("value" => $element['foreign_model'], "type"=>"hidden"));
-			echo $this->Form->input("Image.{$element['id']}.foreign_model", array("value" => $element['foreign_model'], "type"=>"hidden"));
+			echo $this->Form->input("Image.{$element['id']}.posttype_id", array("type"=>"hidden"));
 		?>
 		<button onclick="cancelFileSave(<?php echo $element['id'] ?>, 'image'); return false;" class="act btn_red"><?php echo __("Cancel"); ?></button>
 		<button onclick="saveFile(<?php echo $element['id'] ?>, 'image'); return false;" class="act btn_green"><?php echo __("Save file"); ?></button>
@@ -13,7 +11,7 @@
 		<?php echo $this->Form->input("Image.{$element['id']}.name", array("value" => $element['name'], 'label' => false, "class" => "page-title ui-corner-all tabs_input")); ?>
 	</td>
 	<td>
-		<?php echo $this->Form->input("Image.{$element['id']}.tipologia", array("value" => $element['tipologia'], 'label' => false, 'type'=>'select', 'options'=>Configure::read("tipologiaImmagine"), "class" => "styledselect")); ?>
+		<?php echo $this->Form->input("Image.{$element['id']}.imagetype_id", array("selected" => $element['imagetype_id'], 'label' => false, 'type'=>'select', 'options'=>$this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($element['posttype_id']))), "class" => "styledselect")); ?>
 	</td>
 	<td>
 		&nbsp;

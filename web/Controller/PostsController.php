@@ -134,9 +134,11 @@ class PostsController extends AppController {
 			
 			if ($this->Post->saveAll($this->request->data)) {
 				$id=$this->Post->id;
-				foreach ($this->request->data['Image'] as $image) {
-					$image['foreign_id']=$id;
-					$this->Post->Image->save($image);
+				if (isset($this->request->data['Image'])) {
+					foreach ($this->request->data['Image'] as $image) {
+						$image['foreign_id']=$id;
+						$this->Post->Image->save($image);
+					}
 				}
 				$defC=array();
 				foreach ($categories['category_id'] as $cat) {
@@ -148,17 +150,10 @@ class PostsController extends AppController {
 				}
 				if(!empty($defC))
 					$this->Post->CategoryOrder->saveAll($defC);
-				/*$this->Session->setFlash(__('The post has been saved'));*/
-
-				$this->_flash(__('The post has been saved.', true),'green');
-				
-				
-				$this->redirect(array('action' => 'index', $this->request->data['Post']['posttype_id']));
+					$this->_flash(__('The post has been saved.', true),'green');		
+					$this->redirect(array('action' => 'index', $this->request->data['Post']['posttype_id']));
 			} else {
-				/*$this->Session->setFlash(__('The post could not be saved. Please, try again.'));*/
-
 				$this->_flash(__('The post could not be saved. Please, try again.', true),'red');
-				
 			}
 		}
 		$this->set('posttype', $posttype);

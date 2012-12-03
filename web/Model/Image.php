@@ -69,9 +69,16 @@ class Image extends AppModel {
 		'Post' => array(
 			'className' => 'Post',
 			'foreignKey' => 'foreign_id',
-			'conditions' => 'Image.foreign_model="Post"',
+			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Imagetype' => array(
+				'className' => 'Imagetype',
+				'foreignKey' => 'imagetype_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
 		)
 	);
 	function beforeValidate() {
