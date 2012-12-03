@@ -47,6 +47,9 @@ class PosttypesController extends AppController {
 				$this->Session->setFlash(__('The posttype could not be saved. Please, try again.'));
 			}
 		}
+		$imagetypes = $this->Posttype->Imagetype->find('list');
+		$documenttypes = $this->Posttype->Documenttype->find('list');
+		$this->set(compact('imagetypes', 'documenttypes'));
 	}
 
 /**
@@ -70,6 +73,9 @@ class PosttypesController extends AppController {
 		} else {
 			$this->request->data = $this->Posttype->read(null, $id);
 		}
+		$imagetypes = $this->Posttype->Imagetype->find('list');
+		$documenttypes = $this->Posttype->Documenttype->find('list');
+		$this->set(compact('imagetypes', 'documenttypes'));
 	}
 
 /**

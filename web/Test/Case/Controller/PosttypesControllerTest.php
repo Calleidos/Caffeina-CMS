@@ -35,7 +35,7 @@ class PosttypesControllerTestCase extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.posttype', 'app.category', 'app.category_order', 'app.product', 'app.product_version', 'app.language', 'app.image', 'app.document');
+	public $fixtures = array('app.posttype', 'app.category', 'app.category_order', 'app.post', 'app.post_version', 'app.language', 'app.image', 'app.imagetype', 'app.imagetypes_posttype', 'app.document', 'app.documenttype', 'app.documenttypes_posttype');
 
 /**
  * setUp method
