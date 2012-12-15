@@ -110,14 +110,14 @@ class CategoriesController extends AppController {
 			$this->Category->create();
 			if ($this->Category->save($this->request->data)) {
 				$this->_flash(__('The category has been saved.', true),'green');
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index', $this->request->data['Category']['posttype_id']));
 			} else {
 				$this->_flash(__('The category could not be saved. Please, try again.', true),'red');
 			}
 		}
 		
-		if (isset($this->request->data['Category']['posttype_id']))
-			$posttype=$this->request->data['Category']['posttype_id'];
+		if (!isset($this->request->data['Category']['posttype_id']))
+			$this->request->data['Category']['posttype_id']=$posttype;
 		
 		$parentCategories=$this->Category->generateTreeListPostType($posttype);
 		$parentCategories=array($this->Category->getPostTypeParent($posttype) => __("Nessun Genitore"))+$parentCategories;
@@ -196,9 +196,9 @@ class CategoriesController extends AppController {
  * @return void
  */
 	public function admin_delete($id = null) {
-		/*if (!$this->request->is('post')) {
+		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
-		}*/
+		}
 		$this->Category->id = $id;
 		if (!$this->Category->exists()) {
 			throw new NotFoundException(__('Invalid category'));
@@ -208,15 +208,11 @@ class CategoriesController extends AppController {
 		$category=$this->Category->read(null, $id);
 		
 		if ($this->Category->delete()) {
-			/*$this->Session->setFlash(__('Category deleted'));*/
-
 			$this->_flash(__('Category deleted!', true),'green');
-			
 			$this->redirect(array('action' => 'index', $category['Category']['posttype_id']));
 		}
-		/*$this->Session->setFlash(__('Category was not deleted'));*/
 			$this->_flash(__('Category was not deleted.', true),'red');
-		$this->redirect(array('action' => 'index'));
+		$this->redirect(array('action' => 'index', $category['Category']['posttype_id']));
 	}
 	
 	
