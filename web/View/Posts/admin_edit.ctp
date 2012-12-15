@@ -1,11 +1,10 @@
 <?php 
-//echo $this->Html->css('cake.generic');
- echo $this->Html->css('main');
+ 	echo $this->Html->css('main');
  
- 		$this->element("fancybox_links");
-		$this->Html->css('datetimepicker', null, array('inline' => false));
-		$this->Html->script("/js/functions.js", array('inline' => false));
-		$this->append('script');?>
+ 	$this->element("fancybox_links");
+	$this->Html->css('datetimepicker', null, array('inline' => false));
+	$this->Html->script("/js/functions.js", array('inline' => false));
+	$this->append('script');?>
 		<script type="text/javascript">		
 			jQuery(document).ready(function($){
 				$(function() {
@@ -45,35 +44,13 @@
 			'theme_advanced_statusbar_location' => "bottom",
 			'theme_advanced_toolbar_location' => "top",	
 		)
-	);?>
+	);
 	
-	
-	
-
-	<!--  start page-heading -->
-	<div id="page-heading">
-		<h1><?php echo __('Modifica Articolo')?></h1>
-	</div>
-	<!-- end page-heading -->
-
-	<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
-	<tr>
-		<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowleft.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
-		<th class="topleft"></th>
-		<td id="tbl-border-top">&nbsp;</td>
-		<th class="topright"></th>
-		<th rowspan="3" class="sized"><?php echo $this->Html->image("admin/shared/side_shadowright.jpg", array("width" => 20, "height" => 300, "alt" => ""));?></th>
-	</tr>
-	<tr>
-		<td id="tbl-border-left"></td>
-		<td>
-		<!--  start content-table-inner ...................................................................... START -->
-		<div id="content-table-inner">
-		
-			<!--  start table-content  -->
-			<div id="table-content">
+	$element['title']=__("Modifica articolo");
+	$this->set('element', $element );
+	echo $this->element('/admin/edit/open');
 			
-			<?php echo $this->Form->create('Post');?>
+	echo $this->Form->create('Post');?>
 	
 	
 			<table border="0" width="100%" cellpadding="0" cellspacing="0" id="post-table" >
@@ -174,21 +151,9 @@
 					</tr>
 				<?php } ?>
 			</table>
-					
-			
-		
-		
 		
 		<span class="act input btn_green">
 			<?php echo $this->Form->end(__('Salva'));?>
-		</span>
-</div></div></td>
-<td id="tbl-border-right"></td>
-	</tr>
-	<tr>
-		<th class="sized bottomleft"></th>
-		<td id="tbl-border-bottom">&nbsp;</td>
-		<th class="sized bottomright"></th>
-	</tr>
-	</table>
-	<div class="clear">&nbsp;</div>
+		</span><?php 
+		
+	echo $this->element('/admin/edit/close');

@@ -50,6 +50,7 @@ class PosttypesController extends AppController {
 		$imagetypes = $this->Posttype->Imagetype->find('list');
 		$documenttypes = $this->Posttype->Documenttype->find('list');
 		$this->set(compact('imagetypes', 'documenttypes'));
+		$this->render('admin_edit');
 	}
 
 /**
