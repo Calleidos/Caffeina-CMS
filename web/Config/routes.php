@@ -30,12 +30,12 @@
  * ...and connect the rest of 'Pages' controller's urls.
  */
 	
-	Router::connect('/:language/catalogo', 
+	Router::connect('/catalogo', 
 		array('controller' => 'categories', 
 		'action' => 'index')
 	);
 	
-	Router::connect('/:language/catalogo/:categoria', 
+	Router::connect('/catalogo/:categoria', 
 		array(
 			'controller' => 'categories', 
 			'action' => 'view',
@@ -45,7 +45,7 @@
 		)
 	);
 	
-	Router::connect('/:language/catalogo/:categoria/:prodotto', 
+	Router::connect('/catalogo/:categoria/:prodotto', 
 		array(
 			'controller' => 'postVersions', 
 			'action' => 'view',

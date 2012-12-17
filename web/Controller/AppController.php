@@ -56,7 +56,7 @@ class AppController extends Controller {
 		} else {
 			// CREA MENU
 			
-			$this->loadModel("Category");
+			/*$this->loadModel("Category");
 			$prodotti=$this->Category->children(33, false, array('id'));
 			$ids=array();
 			foreach ($prodotti as $prod) {
@@ -78,6 +78,7 @@ class AppController extends Controller {
 			}
 			
 			pr($list);
+			//*/
 			
 
 		}

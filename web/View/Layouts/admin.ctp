@@ -40,27 +40,18 @@
 
  
  
-echo $this->Html->script('js_admin/ui.core');
-echo $this->Html->script('js_admin/custom_jquery');
+		echo $this->Html->script('js_admin/ui.core');
+		echo $this->Html->script('js_admin/custom_jquery');
+		echo $this->Html->css('css_admin/screen'); ?>
 
-
-echo $this->Html->css('css_admin/screen');
-
-?>
-
-<!--[if IE]>
-<?php 
-echo $this->Html->css('css_admin/pro_dropline_ie');
-?>
-<![endif]-->
+		<!--[if IE]>
+		<?php 
+		echo $this->Html->css('css_admin/pro_dropline_ie');
+		?>
+		<![endif]-->
 
 <!--  checkbox styling script -->
 <?php 
-/*echo $this->Html->script('js_admin/ui.core');*/
-		
-		
-		
-		
 echo $this->Html->script('js_admin/ui.checkbox');
 echo $this->Html->script('js_admin/jquery.bind');
 ?>
@@ -75,7 +66,7 @@ $(function(){
 });
 </script>  
 
-<![if !IE 7]>
+<!--[if !IE 7]>
 
 <!--  styled select box script version 1 -->
 <?php 
