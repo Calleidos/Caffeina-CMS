@@ -244,9 +244,6 @@ class PostsController extends AppController {
  * @return void
  */
 	public function admin_delete($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
 		$this->Post->id = $id;
 		if (!$this->Post->exists()) {
 			throw new NotFoundException(__('Invalid post'));
@@ -274,9 +271,6 @@ class PostsController extends AppController {
  * @return void
  */
 	public function admin_finalDelete($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
 		$this->Post->id = $id;
 		if (!$this->Post->exists()) {
 			throw new NotFoundException(__('Invalid post'));
@@ -286,12 +280,12 @@ class PostsController extends AppController {
 			$this->_flash(__('Post has been deleted.', true),'green');
 			
 			$this->admin_reorder($this->Post->CategoryOrder->find('list', array('conditions' => array('post_id' => $id), 'fields' => array('category_id'))));
-			$this->redirect(array('action' => 'index', $data['Post']['posttype_id']));
+			$this->redirect(array('action' => 'trash', $data['Post']['posttype_id']));
 		}
 
 		$this->_flash(__('Post was not deleted.', true),'red');
 					
-		$this->redirect(array('action' => 'index', $data['Post']['posttype_id']));
+		$this->redirect(array('action' => 'trash', $data['Post']['posttype_id']));
 	}
 	
 	public function admin_reorder($categories=null) {

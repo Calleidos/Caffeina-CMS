@@ -24,7 +24,7 @@
 					".$this->Html->link(__('Edit'), array('controller' => 'posts', 'action' => 'edit', $post['Post']['id']))."
 				</span>
 				<span class='btn_red'>
-					".$this->Form->postLink(__('Delete'), array('controller' => 'posts', 'action' => 'delete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id']))."
+					".$this->Html->link(__('Delete'), array('controller' => 'posts', 'action' => 'finalDelete', $post['Post']['id']), null, __('Are you sure you want to delete # %s?', $post['Post']['id']))."
 				</span>";
 		$element['temp']=!$element['temp'];
 		$this->set('element', $element );
