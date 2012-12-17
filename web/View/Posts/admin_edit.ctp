@@ -1,6 +1,6 @@
 <?php 
  	echo $this->Html->css('main');
- 
+ 	pr($this->request->data);
  	$this->element("fancybox_links");
 	$this->Html->css('datetimepicker', null, array('inline' => false));
 	$this->Html->script("/js/functions.js", array('inline' => false));
@@ -70,8 +70,8 @@
 					<?php
 						if (isset($this->data['Post']['id']))
 							echo $this->Form->input('id');
-						if (isset($posttype))
-							echo $this->Form->input("Post.posttype_id", array("value" => $posttype, 'type' => 'hidden'));
+						if (isset($ths->request->data['Post']['posttype_id']))
+							echo $this->Form->input("Post.posttype_id", array("value" => $this->request->data['Post']['posttype_id'], 'type' => 'hidden'));
 						echo $this->Form->input('code', array('class' => 'page-title ui-corner-all tabs_input'));
 					?>
 					<br />
@@ -118,15 +118,16 @@
 							$selectedCategories=array();
 						echo $this->Form->input('CategoryOrder.category_id', array('type' => 'select', 'multiple'=>"checkbox", 'div' =>"", 'label' => false, 'selected' => $selectedCategories));?>
 					
-						<a class="fancy-modal" href="/admin/categories/addAjax/<?php echo $posttype ?>">
+						<a class="fancy-modal" href="/admin/categories/addAjax/<?php echo $this->request->data['Post']['posttype_id'] ?>">
 							
 							<button onclick="return false;" class="add-button act btn_green" style="height:25px;"><?php echo __("Add Category"); ?></button>
 							
 						</a>
 					</td>
-				</tr><?php 
-					$images=count($this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($posttype))))>0; 
-					$docs=count($this->requestAction(array('controller' => 'documenttypes', 'action' => 'admin_listDocumentTypes' ), array('pass' => array($posttype))))>0; 
+				</tr><?php
+					pr($this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($this->request->data['Post']['posttype_id']))));
+					$images=count($this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($this->request->data['Post']['posttype_id']))))>0; 
+					$docs=count($this->requestAction(array('controller' => 'documenttypes', 'action' => 'admin_listDocumentTypes' ), array('pass' => array($this->request->data['Post']['posttype_id']))))>0;
 				if ($images || $docs) {?>
 					<tr>
 						<td colspan="4">
@@ -136,12 +137,12 @@
 									<?php if ($docs) { ?><li><a href="#tab-documents"><?php echo __('Documenti prodotti'); ?></a></li><?php } ?>
 								</ul><?php 
 								if ($images) {
-									$details=array('type' => 'image', 'model' => 'Post', 'posttype' => $posttype);
+									$details=array('type' => 'image', 'model' => 'Post', 'posttype' => $this->request->data['Post']['posttype_id']);
 									$this->set('details',$details);
 									echo $this->element('/admin/file_list');
 								}
 								if ($docs) {
-									$details=array('type' => 'document', 'model' => 'Post', 'posttype' => $posttype);
+									$details=array('type' => 'document', 'model' => 'Post', 'posttype' => $this->request->data['Post']['posttype_id']);
 									$this->set('details',$details);
 									echo $this->element('/admin/file_list');
 								} ?>

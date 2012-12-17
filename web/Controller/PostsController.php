@@ -156,7 +156,7 @@ class PostsController extends AppController {
 				$this->_flash(__('The post could not be saved. Please, try again.', true),'red');
 			}
 		}
-		$this->set('posttype', $posttype);
+		$this->request->data['Post']['posttype_id']=$posttype;
 		$categories = $this->Post->CategoryOrder->Category->generateTreeListPostType($posttype);
 		$this->set(compact('categories'));
 		$languages=$this->Post->PostVersion->Language->find('list', array('order' => array('Language.order')));

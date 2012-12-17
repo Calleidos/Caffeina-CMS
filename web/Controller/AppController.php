@@ -43,9 +43,43 @@ class AppController extends Controller {
 			)
 	);
 	
+	function createList($element, $postType, $childrenType) {
+		foreach ($element[$postType] as $posts)
+			$list['Posts']=$posts;
+		foreach ($element[$postType] as $posts)
+			$list['Posts']=$posts;
+	}
+	
 	function beforeFilter() {
 		if (isset($this->params['prefix']) && $this->params['prefix'] == 'admin') {
-			$this->layout = 'admin';
+			//$this->layout = 'admin';
+		} else {
+			// CREA MENU
+			
+			$this->loadModel("Category");
+			$prodotti=$this->Category->children(33, false, array('id'));
+			$ids=array();
+			foreach ($prodotti as $prod) {
+				$ids[]=$prod['Category']['id'];
+			}
+			$prodotti=$this->Category->find('all', array('conditions' => array('Category.id'=> $ids)));
+			//pr($prodotti);
+			foreach ($prodotti as $key => $categoria) {
+				$posts=$this->Category->CategoryOrder->find('all', array('conditions' => array('CategoryOrder.category_id' => $categoria['Category']['id'])));
+				$prodotti[$key]['Posts']=$posts['Posts'];
+				
+			}
+			pr($prodotti);
+			
+			$list=array();
+			
+			foreach ($prodotti as $prod) {
+				$list[]=$this->createList($prod, "Posts", "ChildCategory");
+			}
+			
+			pr($list);
+			
+
 		}
 		if(isset($this->Auth)) {
 		    if(isset($this->params['admin']) && $this->params['admin']) {
