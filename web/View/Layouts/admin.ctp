@@ -337,6 +337,21 @@ $(document).pngFix( );
 		
 		<div class="nav-divider">&nbsp;</div>
 		
+		<ul class="select"><li><a href="#nogo"><b><?php echo __('Pagine');?></b><!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<div class="select_sub">
+			<ul class="sub">
+				<li class="sub_show"><?php echo $this->Html->link(__('Elenco pagine'), array('controller' => 'posts', 'action' => 'index', 'prefix'=>'admin', 3), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Aggiungi pagina'), array('controller' => 'posts', 'action' => 'add', 'prefix'=>'admin', 3), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'posts', 'action' => 'trash', 'prefix'=>'admin',3), array('class' => ''));?></li>
+			</ul>
+		</div>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		</ul>
+		
+		<div class="nav-divider">&nbsp;</div>
+		
 		<ul class="select"><li><a href="#nogo"><b><?php echo __('Utenti');?></b><!--[if IE 7]><!--></a><!--<![endif]-->
 		<!--[if lte IE 6]><table><tr><td><![endif]-->
 		<div class="select_sub">

@@ -1,6 +1,5 @@
 <?php 
  	echo $this->Html->css('main');
- 	pr($this->request->data);
  	$this->element("fancybox_links");
 	$this->Html->css('datetimepicker', null, array('inline' => false));
 	$this->Html->script("/js/functions.js", array('inline' => false));
@@ -70,8 +69,8 @@
 					<?php
 						if (isset($this->data['Post']['id']))
 							echo $this->Form->input('id');
-						if (isset($ths->request->data['Post']['posttype_id']))
-							echo $this->Form->input("Post.posttype_id", array("value" => $this->request->data['Post']['posttype_id'], 'type' => 'hidden'));
+						if (isset($this->request->data['Post']['posttype_id']))
+							echo $this->Form->input("Post.posttype_id", array('type' => 'hidden'));
 						echo $this->Form->input('code', array('class' => 'page-title ui-corner-all tabs_input'));
 					?>
 					<br />
@@ -125,7 +124,6 @@
 						</a>
 					</td>
 				</tr><?php
-					pr($this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($this->request->data['Post']['posttype_id']))));
 					$images=count($this->requestAction(array('controller' => 'imagetypes', 'action' => 'admin_listImageTypes' ), array('pass' => array($this->request->data['Post']['posttype_id']))))>0; 
 					$docs=count($this->requestAction(array('controller' => 'documenttypes', 'action' => 'admin_listDocumentTypes' ), array('pass' => array($this->request->data['Post']['posttype_id']))))>0;
 				if ($images || $docs) {?>
