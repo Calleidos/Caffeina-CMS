@@ -98,7 +98,11 @@ class PostsController extends AppController {
 		if (!$this->Post->exists()) {
 			throw new NotFoundException(__('Invalid post'));
 		}
-		$this->set('post', $this->Post->read(null, $id));
+		$post=$this->Post->read(null, $id);
+		if (isset($post['Posttype']['name']) && !empty($post['Posttype']['name'])) {
+			$this->render("/{$post['Posttype']['name']}/index");
+		}
+		$this->set('post',$post);
 	}
 	
 

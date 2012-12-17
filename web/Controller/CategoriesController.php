@@ -76,11 +76,10 @@ class CategoriesController extends AppController {
 		
 		$posts=array();
 		
-		foreach($category['Post'] as $post) {
-			$posts[]=$post['id'];
-		}
 		$this->set('category', $permalink);
-		$this->set('posts', $this->Category->Post->PostVersion->find('all', array('conditions' => array('Language.iso' => $language, 'PostVersion.post_id' => $posts, 'PostVersion.active' => 2), 'order' => array('Post.order'))));
+		$categoryOrder=$this->Category->CategoryOrder->find('list', array('conditions'=> array('category_id' => $category['Category']['id']), 'order' => array('order'), 'fields' => array('post_id')));
+		pr($categoryOrder);
+		$this->set('posts', $this->Category->CategoryOrder->Post->PostVersion->find('all', array('conditions' => array('Post.id' => $categoryOrder, 'Language.iso' => $language, 'PostVersion.post_id' => $posts, 'PostVersion.active' => 2))));
 		
 	}
     

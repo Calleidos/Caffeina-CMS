@@ -25,17 +25,18 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+	Router::redirect('/',array('/it'));
+	Router::connect('/:language', array('controller' => 'pages', 'action' => 'display', 'home'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
 	
-	Router::connect('/catalogo', 
+	Router::connect('/:language/catalogo', 
 		array('controller' => 'categories', 
 		'action' => 'index')
 	);
 	
-	Router::connect('/catalogo/:categoria', 
+	Router::connect('/:language/catalogo/:categoria', 
 		array(
 			'controller' => 'categories', 
 			'action' => 'view',
@@ -45,7 +46,7 @@
 		)
 	);
 	
-	Router::connect('/catalogo/:categoria/:prodotto', 
+	Router::connect('/:language/catalogo/:categoria/:prodotto', 
 		array(
 			'controller' => 'postVersions', 
 			'action' => 'view',

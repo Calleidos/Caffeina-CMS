@@ -174,8 +174,8 @@
 				<div id="slider-container">
 					
 					<ul id="mycarousel" class="jcarousel-skin-tango gallery clearfix">
-						<li><a href="img/sliders/home/01.jpg" rel="prettyPhoto[gallery1]"><img src="img/sliders/home/01.jpg" alt="" class="reflect" /></a></li>
-						<li><a href="img/sliders/home/02.jpg" rel="prettyPhoto[gallery1]"><img src="img/sliders/home/02.jpg" alt="" class="reflect" /></a></li>
+						<li><a href="/img/sliders/home/01.jpg" rel="prettyPhoto[gallery1]"><img src="/img/sliders/home/01.jpg" alt="" class="reflect" /></a></li>
+						<li><a href="/img/sliders/home/02.jpg" rel="prettyPhoto[gallery1]"><img src="/img/sliders/home/02.jpg" alt="" class="reflect" /></a></li>
 					</ul>
 					
 				</div>	

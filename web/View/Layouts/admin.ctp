@@ -370,8 +370,8 @@ $(document).pngFix( );
 		<!--[if lte IE 6]><table><tr><td><![endif]-->
 		<div class="select_sub">
 			<ul class="sub">
-				<li><?php echo $this->Html->link(__('Elenco notizie'), array('controller' => 'news', 'action' => 'index', 'prefix'=>'admin'), array('class' => ''));?></li>
-				<li><?php echo $this->Html->link(__('Aggiungi notizia'), array('controller' => 'news', 'action' => 'add', 'prefix'=>'admin'), array('class' => ''));?></li>
+				<li class="sub_show"><?php echo $this->Html->link(__('Elenco news'), array('controller' => 'posts', 'action' => 'index', 'prefix'=>'admin', 2), array('class' => ''));?></li>
+				<li><?php echo $this->Html->link(__('Aggiungi news'), array('controller' => 'posts', 'action' => 'add', 'prefix'=>'admin', 2), array('class' => ''));?></li>
 				<li><?php echo $this->Html->link(__('Cestino'), array('controller' => 'posts', 'action' => 'trash', 'prefix'=>'admin',2), array('class' => ''));?></li>
 			</ul>
 		</div>

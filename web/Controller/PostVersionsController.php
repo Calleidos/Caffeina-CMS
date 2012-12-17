@@ -26,6 +26,7 @@ class PostVersionsController extends AppController {
  */
 	public function view($slug=null, $language=null) {
 		$pv=$this->PostVersion->find('first', array('conditions'=> array('slug' => $slug, 'Language.iso' => $language)));
+		pr($pv);
 		$this->PostVersion->id = $pv['PostVersion']['id'];
 		pr($pv);
 		pr($this->PostVersion->id);
