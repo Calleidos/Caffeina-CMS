@@ -128,8 +128,6 @@ class PostsController extends AppController {
  */
 	public function admin_add($posttype=null) {
 		if ($this->request->is('post')) {
-			pr($this->request->data);
-			die;
 			$this->Post->create();
 			foreach ($this->request->data["PostVersion"] as $id=>$pv) {
 				if (trim(preg_replace("/[^a-zA-Z0-9\s]/", "_", $pv['seo_title']))=='')

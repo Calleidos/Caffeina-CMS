@@ -58,8 +58,7 @@ if (!defined('APP_DIR')) {
  *
  * Leaving this constant undefined will result in it being defined in Cake/bootstrap.php
  */
-define('CAKE_CORE_INCLUDE_PATH', 'C:' . DS . 'xampp' . DS . 'htdocs'  . DS . 'cake' . DS . 'lib');
-
+define('CAKE_CORE_INCLUDE_PATH', 'C:' . DS . 'xampp' . DS . 'cake' . DS . 'cake2.1.3' . DS . 'lib');
 /**
  * Editing below this line should NOT be necessary.
  * Change at your own risk.
